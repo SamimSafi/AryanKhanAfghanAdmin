@@ -1,24 +1,39 @@
-import { useLocation, NavLink, Link } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { useLocation, Link } from 'react-router-dom';
+import { useTheme, Box, Typography } from '@mui/material';
 import {
-  Logo,
   Sidebar as MUI_Sidebar,
   Menu,
   MenuItem,
   Submenu,
 } from 'react-mui-sidebar';
 import { IconPoint } from '@tabler/icons-react';
+import { Icon } from '@iconify/react';
 import Menuitems from './MenuItems';
-import logoicn from '../../../assets/images/logos/dark1-logo.svg';
-import Upgrade from './Upgrade';
+import ThemeToggle from '../../../components/ThemeToggle';
 
-const renderMenuItems = (items, pathDirect) => {
+const renderMenuItems = (items, pathDirect, theme) => {
   return items.map((item) => {
-    const Icon = item.icon ? item.icon : IconPoint;
-    const itemIcon = <Icon stroke={1.5} size="1.3rem" />;
+    const IconComponent = item.icon ? item.icon : IconPoint;
+    const itemIcon = typeof item.icon === 'string' ? (
+      <Icon
+        icon={`solar:${item.icon}`}
+        width="20"
+        height="20"
+        sx={{
+          color: theme.palette.mode === 'dark' ? '#ffffff' : theme.palette.text.primary,
+        }}
+      />
+    ) : (
+      <Box
+        sx={{
+          color: theme.palette.mode === 'dark' ? '#ffffff' : theme.palette.text.primary,
+        }}
+      >
+        <IconComponent stroke={1.5} size="1.3rem" />
+      </Box>
+    );
 
     if (item.subheader) {
-      // Display Subheader
       return (
         <Box sx={{ margin: '0 -24px', textTransform: 'uppercase' }} key={item.subheader}>
           <Menu subHeading={item.subheader} key={item.subheader} />
@@ -26,7 +41,6 @@ const renderMenuItems = (items, pathDirect) => {
       );
     }
 
-    // If the item has children (submenu)
     if (item.children) {
       return (
         <Submenu
@@ -34,31 +48,84 @@ const renderMenuItems = (items, pathDirect) => {
           title={item.title}
           icon={itemIcon}
           borderRadius="7px"
+          sx={{
+            '& .sidebar-submenu-icon': {
+              color: theme.palette.mode === 'dark' ? '#ffffff' : theme.palette.text.primary,
+            },
+          }}
         >
-          {renderMenuItems(item.children, pathDirect)}
+          {renderMenuItems(item.children, pathDirect, theme)}
         </Submenu>
       );
     }
 
-    // Common MenuItem props
     const menuItemProps = {
       isSelected: pathDirect === item.href,
       borderRadius: '7px',
       icon: item.icon ? (
-        <Icon icon={`solar:${item.icon}`} width="20" height="20" />
+        typeof item.icon === 'string' ? (
+          <Icon
+            icon={`solar:${item.icon}`}
+            width="20"
+            height="20"
+            sx={{
+              color: pathDirect === item.href
+                ? '#fff'
+                : theme.palette.mode === 'dark'
+                ? '#ffffff'
+                : theme.palette.text.primary,
+            }}
+          />
+        ) : (
+          <Box
+            sx={{
+              color: pathDirect === item.href
+                ? '#fff'
+                : theme.palette.mode === 'dark'
+                ? '#ffffff'
+                : theme.palette.text.primary,
+            }}
+          >
+            <IconComponent stroke={1.5} size="1.3rem" />
+          </Box>
+        )
       ) : (
-        <Icon icon="mdi:circle" width="6" height="6" />
+        <Icon
+          icon="mdi:circle"
+          width="6"
+          height="6"
+          sx={{
+            color: pathDirect === item.href
+              ? '#fff'
+              : theme.palette.mode === 'dark'
+              ? '#ffffff'
+              : theme.palette.text.primary,
+          }}
+        />
       ),
       badge: item.chip ? true : false,
       badgeContent: item.chip || '',
       badgeColor: 'secondary',
       badgeTextColor: '#1b84ff',
       disabled: item.disabled,
+      sx: {
+        '& .sidebar-menu-item-icon': {
+          color: pathDirect === item.href
+            ? '#fff'
+            : theme.palette.mode === 'dark'
+            ? '#ffffff'
+            : theme.palette.text.primary,
+        },
+      },
     };
 
-    // If the item has no children, render a MenuItem
+    const titleColor = pathDirect === item.href
+      ? '#fff'
+      : theme.palette.mode === 'dark'
+      ? '#ffffff'
+      : theme.palette.text.primary;
+
     if (item.href && item.href.startsWith('https')) {
-      // External link: Use <a> tag
       return (
         <a
           key={item.id}
@@ -68,17 +135,13 @@ const renderMenuItems = (items, pathDirect) => {
           style={{ textDecoration: 'none', color: 'inherit' }}
         >
           <MenuItem {...menuItemProps}>
-            <Typography
-              component="span"
-              color={pathDirect === item.href ? '#fff' : 'inherit'}
-            >
+            <Typography component="span" sx={{ color: titleColor }}>
               {item.title}
             </Typography>
           </MenuItem>
         </a>
       );
     } else if (item.href) {
-      // Internal link: Use Link
       return (
         <Link
           key={item.id}
@@ -86,23 +149,16 @@ const renderMenuItems = (items, pathDirect) => {
           style={{ textDecoration: 'none', color: 'inherit' }}
         >
           <MenuItem {...menuItemProps}>
-            <Typography
-              component="span"
-              color={pathDirect === item.href ? '#fff' : 'inherit'}
-            >
+            <Typography component="span" sx={{ color: titleColor }}>
               {item.title}
             </Typography>
           </MenuItem>
         </Link>
       );
     } else {
-      // No link: Render MenuItem directly
       return (
         <MenuItem key={item.id} {...menuItemProps}>
-          <Typography
-            component="span"
-            color={pathDirect === item.href ? '#fff' : 'inherit'}
-          >
+          <Typography component="span" sx={{ color: titleColor }}>
             {item.title}
           </Typography>
         </MenuItem>
@@ -114,18 +170,33 @@ const renderMenuItems = (items, pathDirect) => {
 const SidebarItems = () => {
   const location = useLocation();
   const pathDirect = location.pathname;
+  const theme = useTheme();
 
   return (
     <Box sx={{ px: '24px', overflowX: 'hidden' }}>
-      <MUI_Sidebar width="100%" showProfile={false} themeColor="#5D87FF" themeSecondaryColor="#49BEFF1a">
-        <Box sx={{ margin: '0 -24px' }}>
-          <Logo img={logoicn} component={NavLink} to="/">
-            Flexy
-          </Logo>
-        </Box>
-        {renderMenuItems(Menuitems, pathDirect)}
+      <MUI_Sidebar
+        width="100%"
+        showProfile={false}
+        themeColor={theme.palette.primary.main}
+        themeSecondaryColor={theme.palette.secondary.main}
+        sx={{
+          '& .sidebar-menu-item': {
+            color: theme.palette.mode === 'dark' ? '#ffffff' : theme.palette.text.primary,
+          },
+          '& .sidebar-menu-item.selected': {
+            color: '#fff',
+          },
+          '& .sidebar-menu-item-icon': {
+            color: theme.palette.mode === 'dark' ? '#ffffff' : theme.palette.text.primary,
+          },
+          '& .sidebar-menu-item.selected .sidebar-menu-item-icon': {
+            color: '#fff',
+          },
+        }}
+      >
+        {renderMenuItems(Menuitems, pathDirect, theme)}
+        <ThemeToggle />
       </MUI_Sidebar>
-      <Upgrade />
     </Box>
   );
 };

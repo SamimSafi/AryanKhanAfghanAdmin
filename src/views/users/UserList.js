@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -9,18 +9,18 @@ import {
 } from '@mui/material';
 import { toast } from 'react-toastify';
 import LoadingSkeleton from '../../components/LoadingSkeleton';
-import UserTable from './UserTable'; // Create this component
+import UserTable from './UserTable';
 import ConfirmationDialog from '../../components/ConfirmationDialog';
-import userService from '../../services/userService';
 import useDebounce from '../../hooks/useDebounce';
+import userService from '../../services/userService';
 import useUserStore from '../../context/userStore';
 
 const UserList = () => {
-  const { users, loading, deleteUser, bulkDeleteUsers, fetchUsers } = useUserStore();
+  const { users, loading, hasMore, deleteUser, bulkDeleteUsers, fetchUsers } = useUserStore();
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [selected, setSelected] = useState([]);
@@ -29,47 +29,57 @@ const UserList = () => {
   const debouncedSearch = useDebounce(searchTerm, 300);
 
   useEffect(() => {
-    fetchUsers(); // Load users on mount
-  }, [fetchUsers]);
+    fetchUsers({ pageSize: rowsPerPage, pageIndex: page, search: debouncedSearch });
+  }, [fetchUsers, page, rowsPerPage, debouncedSearch]);
 
   useEffect(() => {
-    const processUsers = async () => {
-      let result = users;
-      if (debouncedSearch.length >= 3 ) {
-        result = userService.filterUsers(users, debouncedSearch);
-      }
-      result = userService.sortUsers(result, sortOrder);
-      setFilteredUsers(result);
-      setPage(1);
-    };
-    processUsers();
-  }, [users, debouncedSearch, sortOrder]);
+    let result = users;
+    result = userService.sortUsers(result, sortOrder);
+    setFilteredUsers(result);
+  }, [users, sortOrder]);
 
-  const handleSearch = (e) => setSearchTerm(e.target.value);
-  const handleSort = () => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-  const handleChangePage = (event, newPage) => setPage(newPage + 1);
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    setPage(0); // Reset to first page on search
+  };
+
+  const handleSort = () => {
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(1);
+    setPage(0);
   };
+
   const handleSelect = (id) => {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
+
   const handleSelectAll = (event) => {
     if (event.target.checked) {
-      const currentPageUsers = userService.paginateUsers(filteredUsers, page, rowsPerPage);
-      setSelected(currentPageUsers.map((user) => user.id));
+      setSelected(filteredUsers.map((user) => user.id));
     } else {
       setSelected([]);
     }
   };
+
   const handleDelete = (id) => {
     setDeleteId(id);
     setOpenDialog(true);
   };
- 
+
+  const handleBulkDelete = () => {
+    if (selected.length === 0) return toast.error('No users selected.');
+    setOpenDialog(true);
+  };
+
   const confirmDelete = async () => {
     try {
       if (deleteId) {
@@ -78,6 +88,7 @@ const UserList = () => {
         await bulkDeleteUsers(selected);
         setSelected([]);
       }
+      fetchUsers({ pageSize: rowsPerPage, pageIndex: page, search: debouncedSearch });
     } catch (error) {
       toast.error('Failed to delete users.');
     } finally {
@@ -85,8 +96,6 @@ const UserList = () => {
       setDeleteId(null);
     }
   };
-
-  const paginatedUsers = userService.paginateUsers(filteredUsers, page, rowsPerPage);
 
   return (
     <Box sx={{ p: 3 }}>
@@ -109,10 +118,18 @@ const UserList = () => {
             value={searchTerm}
             onChange={handleSearch}
             sx={{ maxWidth: 400 }}
-            placeholder="Enter at least 3 characters"
+            placeholder="Enter search term"
           />
         </Box>
         <Box sx={{ display: 'flex', gap: 2 }}>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={handleBulkDelete}
+            disabled={selected.length === 0}
+          >
+            Delete Selected
+          </Button>
           <Button
             variant="contained"
             onClick={() => navigate('/users/create')}
@@ -126,7 +143,7 @@ const UserList = () => {
       ) : (
         <>
           <UserTable
-            users={paginatedUsers}
+            users={filteredUsers}
             sortOrder={sortOrder}
             handleSort={handleSort}
             handleDelete={handleDelete}
@@ -136,12 +153,13 @@ const UserList = () => {
           />
           <TablePagination
             component="div"
-            count={filteredUsers.length}
-            page={page - 1}
+            count={hasMore ? -1 : filteredUsers.length} // Disable total count display
+            page={page}
             onPageChange={handleChangePage}
             rowsPerPage={rowsPerPage}
             onRowsPerPageChange={handleChangeRowsPerPage}
             rowsPerPageOptions={[10, 25, 50, 100]}
+            nextIconButtonProps={{ disabled: !hasMore }}
           />
         </>
       )}

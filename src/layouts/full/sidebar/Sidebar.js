@@ -1,14 +1,11 @@
 import { useMediaQuery, Box, Drawer } from '@mui/material';
 import SidebarItems from './SidebarItems';
-import Scrollbar from "../../../components/custom-scroll/Scrollbar";
-import Upgrade from './Upgrade'
+import Scrollbar from '../../../components/custom-scroll/Scrollbar';
+import Upgrade from './Upgrade';
 
 const Sidebar = (props) => {
-
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg')); // Line 7: Requires valid theme
   const sidebarWidth = '270px';
-
-
 
   if (lgUp) {
     return (
@@ -23,7 +20,6 @@ const Sidebar = (props) => {
         {/* ------------------------------------------- */}
         <Drawer
           anchor="left"
-          // eslint-disable-next-line react/prop-types
           open={props.isSidebarOpen}
           variant="permanent"
           PaperProps={{
@@ -37,7 +33,7 @@ const Sidebar = (props) => {
           {/* ------------------------------------------- */}
           {/* Sidebar Box */}
           {/* ------------------------------------------- */}
-          <Scrollbar sx={{ height: "calc(100% - 73px)" }}>
+          <Scrollbar sx={{ height: 'calc(100% - 73px)' }}>
             <Box>
               {/* ------------------------------------------- */}
               {/* Sidebar Items */}
@@ -45,35 +41,31 @@ const Sidebar = (props) => {
               <SidebarItems />
             </Box>
           </Scrollbar>
-        </Drawer >
-      </Box >
+        </Drawer>
+      </Box>
     );
   }
   return (
     <Drawer
       anchor="left"
-      // eslint-disable-next-line react/prop-types
       open={props.isMobileSidebarOpen}
-      // eslint-disable-next-line react/prop-types
       onClose={props.onSidebarClose}
       variant="temporary"
       PaperProps={{
         sx: {
-
           boxShadow: (theme) => theme.shadows[8],
         },
       }}
     >
-
-      <Scrollbar sx={{ height: "calc(100% - 73px)" }}>
+      <Scrollbar sx={{ height: 'calc(100% - 73px)' }}>
         {/* ------------------------------------------- */}
         {/* Sidebar For Mobile */}
         {/* ------------------------------------------- */}
         <SidebarItems />
+        <Upgrade />
       </Scrollbar>
-      <Upgrade />
-
     </Drawer>
   );
 };
+
 export default Sidebar;
