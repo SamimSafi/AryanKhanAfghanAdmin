@@ -1,5 +1,5 @@
 {
-  "name": "modernize-free-react-app-vite",
+  "name": "akacc_admin",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -20,6 +20,7 @@
     "@svgr/rollup": "^8.1.0",
     "@tabler/icons-react": "^2.35.0",
     "apexcharts": "^4.4.0",
+    "axios": "^1.9.0",
     "lodash": "^4.17.21",
     "prop-types": "^15.8.1",
     "react": "^19.0.0",

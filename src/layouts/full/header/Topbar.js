@@ -1,15 +1,34 @@
-import React from 'react';
-import { Box, AppBar, Toolbar, styled, Stack, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, AppBar, Toolbar, styled, Stack, Button, IconButton, Badge, Menu, MenuItem } from '@mui/material';
 import adminmartLogo from '../../../assets/images/logos/logo-adminmart.svg';
-import { IconLifebuoy, IconGift, IconBriefcase } from '@tabler/icons-react';
+import { IconLifebuoy, IconGift, IconBriefcase, IconBellRinging } from '@tabler/icons-react';
 import { Typography} from '@mui/material';
 import { Link } from 'react-router';
 import LivePreviewDropdown from './LivePreviewDropdown';
 import BuyNowDropdown from './BuyNowDropdown';
-
+import Profile from './Profile';
+import { Logo } from 'react-mui-sidebar';
+import { NavLink } from 'react-router';
+import logoicn from "../../../assets/images/logos/dark1-logo.svg";
 
 const Topbar = (props) => {
 
+    const [anchorEl, setAnchorEl] = useState(null);
+  
+    const [menuPosition, setMenuPosition] = useState(null);
+  
+    const handleClick = (event) => {
+      const rect = event.currentTarget.getBoundingClientRect(); // Get exact position
+      setMenuPosition({
+        top: rect.bottom + window.scrollY, // Position menu below the icon
+        left: rect.left + window.scrollX,  // Align with icon
+      });
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
 
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     boxShadow: 'none',
@@ -26,20 +45,6 @@ const Topbar = (props) => {
     color: theme.palette.text.secondary,
   }));
 
-  const GhostButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.primary.contrastText,
-    backgroundColor: theme.palette.primary.transparent,
-    boxShadow:"none",
-    borderRadius: "7px",
-    fontWeight:600,
-    '&:hover': {
-      backgroundColor: theme.palette.primary.main,
-    },
-    "& .MuiButton-startIcon": {
-      marginRight: "4px",
-    }
-  }));
-
   return (
     <AppBarStyled position="sticky" color="default">
       <ToolbarStyled sx={{flexWrap:"wrap"}} >
@@ -49,20 +54,55 @@ const Topbar = (props) => {
                   useFlexGap
                   sx={{ flexWrap: 'wrap', justifyContent:{xs:"center", lg:"between"}, paddingY:{xs:"8px" , lg:"0px"} , width:{xs:"100%" , lg:"auto"} }}
               >
-                 <img src={adminmartLogo} alt="logo" />
+                 <Box sx={{ margin: "0 -24px" }}>
+                   <Logo img={logoicn} component={NavLink} to="/" >Flexy</Logo>
+                 </Box>
                <Stack spacing={1} direction="row" sx={{flexWrap:'wrap' , display : {xs:"none",lg:"flex"} }} >
-               <Link to="https://adminmart.com/support/" target='_blank' ><GhostButton startIcon={<IconLifebuoy size={18} />} variant="contained">Support</GhostButton></Link>
-               <Link to="https://adminmart.com/" target='_blank' ><GhostButton startIcon={<IconGift size={18} />} variant="contained">Templates</GhostButton></Link>
-               <Link to="https://adminmart.com/hire-us/" target='_blank' ><GhostButton startIcon={<IconBriefcase size={18} />} variant="contained">Hire Us</GhostButton></Link>
+                   <Box>
+          <IconButton
+            aria-label="show 4 new mails"
+            color="inherit"
+            aria-controls="notification-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+          >
+            <Badge variant="dot" color="primary">
+              <IconBellRinging size="21" stroke="1.5" />
+            </Badge>
+          </IconButton>
+
+          <Menu
+            id="notification-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            anchorReference="anchorPosition" // Use custom positioning
+            anchorPosition={menuPosition ? { top: menuPosition.top, left: menuPosition.left } : undefined}
+            PaperProps={{
+              sx: {
+                mt: 1, // Ensures the menu appears slightly below the bell icon
+                boxShadow: 9, // Optional: Improves visibility with a shadow
+                minWidth: '200px', // Adjust width to ensure proper alignment
+              },
+            }}
+          >
+            <MenuItem onClick={handleClose}>
+              <Typography variant="body1">Item 1</Typography>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Typography variant="body1">Item 2</Typography>
+            </MenuItem>
+          </Menu>
+
+        </Box>
                </Stack>
                 
               </Stack>
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center" sx={{ flexWrap: 'wrap', justifyContent:"center" , gap:{xs:"10px" , lg:"0px"} , padding:{xs:"0px 0px 10px 0px" , lg:"0px 0px"} }}>
-        <Typography variant="h5" sx={{ color: (theme) => theme.palette.primary.contrastText }} >Check Modernize Premium Version</Typography>
-        {/* <DropdownMenu/> */}
-        <LivePreviewDropdown/>
-        <BuyNowDropdown/>
+        <Stack spacing={1} direction="row" alignItems="center">
+          <Profile />
+        </Stack>
         </Stack>
       </ToolbarStyled>
     </AppBarStyled>

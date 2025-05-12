@@ -1,12 +1,89 @@
 // src/api/agent.js
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import useAuthStore from '../context/authStore';
 
 // Simulate server latency for all API calls
 const simulateLatency = () =>
   new Promise((resolve) => setTimeout(resolve, 500));
 
+
+// Base URL for your API
+const API_BASE_URL = 'http://localhost:3000'; // Replace with your actual API base URL
+
+// Create an Axios instance
+const axiosInstance = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Interceptor to attach token to every request
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Response interceptor to handle 401 errors
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Clear auth state and redirect to login
+      localStorage.removeItem('accessToken');
+      useAuthStore.getState().logout();
+      window.location.href = '/auth/login'; // Force redirect
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Client-related API endpoints
+
+// Auth API calls
+const AuthAPI = {
+  signIn: async (credentials) => {
+    const response = await axiosInstance.post('/auth/signIn', credentials);
+    return response.data; // Returns { accessToken: "..." }
+  },
+};
+
+// User API calls
+const UserAPI = {
+    fetchUsers: async ({ pageSize, pageIndex, search }) => {
+    const response = await axiosInstance.post('/user/findAll', {
+      pageSize,
+      pageIndex,
+      search,
+    });
+    return response.data;
+  },
+  createUser: async (userData) => {
+    const response = await axiosInstance.post('/user', userData);
+    return response.data;
+  },
+   updateUser: async (id, userData) => {
+    const response = await axiosInstance.patch(`/user/${id}`, userData);
+    return response.data;
+  },
+  deleteUser: async (userId) => {
+    const response = await axiosInstance.delete(`/user/${userId}`);
+    return response.data;
+  },
+  getUser: async (userId) => {
+    const response = await axiosInstance.get(`/user/${userId}`);
+    return response.data;
+  },
+};
+
 const ClientAPI = {
   fetchClients: async () => {
     try {
@@ -50,9 +127,10 @@ const ClientAPI = {
 // Centralized agent exporting all resource APIs
 const agent = {
   Clients: ClientAPI,
+  Auth:AuthAPI,
   // Add other resource APIs here (e.g., Products, Users)
   // Products: ProductAPI,
-  // Users: UserAPI,
+  Users: UserAPI,
 };
 
 export default agent;

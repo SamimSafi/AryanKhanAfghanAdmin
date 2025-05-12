@@ -23,6 +23,7 @@ const Sidebar = (props) => {
         {/* ------------------------------------------- */}
         <Drawer
           anchor="left"
+          // eslint-disable-next-line react/prop-types
           open={props.isSidebarOpen}
           variant="permanent"
           PaperProps={{
@@ -51,7 +52,9 @@ const Sidebar = (props) => {
   return (
     <Drawer
       anchor="left"
+      // eslint-disable-next-line react/prop-types
       open={props.isMobileSidebarOpen}
+      // eslint-disable-next-line react/prop-types
       onClose={props.onSidebarClose}
       variant="temporary"
       PaperProps={{

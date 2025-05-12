@@ -84,6 +84,12 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
+    title: 'Users',
+    icon: IconAperture,
+    href: '/users',
+  },
+  {
+    id: uniqueId(),
     title: 'eCommerce',
     icon: IconShoppingCart,
     href: 'https://modernize-react.adminmart.com/dashboards/ecommerce',

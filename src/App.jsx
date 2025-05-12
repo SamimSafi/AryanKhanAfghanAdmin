@@ -3,12 +3,13 @@
 // import viteLogo from '/vite.svg'
 import './App.css'
 
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { CircularProgress, CssBaseline, ThemeProvider } from '@mui/material';
 
 import { baselightTheme } from "./theme/DefaultColors";
 import { RouterProvider } from 'react-router';
 import router from "./routes/Router.js"
 import { ToastContainer } from 'react-toastify';
+import { Suspense } from 'react';
 
 function App() {
   const theme = baselightTheme;
@@ -16,7 +17,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Suspense fallback={<CircularProgress />}>
       <RouterProvider router={router} />
+    </Suspense>
       <ToastContainer />
     </ThemeProvider>
   );
