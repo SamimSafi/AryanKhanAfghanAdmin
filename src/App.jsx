@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, Box, CircularProgress } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
@@ -6,8 +6,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ThemeContext, ThemeProviderWrapper } from './context/ThemeContext';
 import router from './routes/Router.js';
 import './App.css';
+import { setupInterceptors } from './api/axios'; // Adjust path
+import useAuthStore from './context/authStore.jsx';
 
 const App = () => {
+
+  useEffect(() => {
+    console.log('App - Setting upd interceptors and initializing store');
+    setupInterceptors(useAuthStore); // Set up Axios interceptors
+    useAuthStore.getState().initialize(); // Run store initialization
+  }, []);
+
   return (
     <ThemeProviderWrapper>
       <ThemeContext.Consumer>

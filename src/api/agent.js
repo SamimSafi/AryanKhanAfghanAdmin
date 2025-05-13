@@ -1,62 +1,11 @@
-// src/api/agent.js
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
-import useAuthStore from '../context/authStore';
+import axiosInstance from './axios';
 
 // Simulate server latency for all API calls
 const simulateLatency = () =>
   new Promise((resolve) => setTimeout(resolve, 500));
 
-
-// Base URL for your API
-const API_BASE_URL = 'http://localhost:3000'; // Replace with your actual API base URL
-
-// Create an Axios instance
-const axiosInstance = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-// Interceptor to attach token to every request
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-// Axios interceptor for handling 401 errors
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true; // Prevent infinite retry loop
-
-      try {
-        const newAccessToken = await useAuthStore.getState().refreshAccessToken();
-        // Update the Authorization header with the new token
-        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-        // Retry the original request
-        return axiosInstance(originalRequest);
-      } catch (refreshError) {
-        // If refresh fails, log out the user
-        useAuthStore.getState().logout();
-        return Promise.reject(refreshError);
-      }
-    }
-
-    return Promise.reject(error);
-  }
-);
 
 // Client-related API endpoints
 

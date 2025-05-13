@@ -43,4 +43,5 @@ export default defineConfig({
     // })],
 
     plugins: [svgr(), react()],
+    envPrefix: 'VITE_', // Ensure VITE_ prefix is recognized
 });
