@@ -32,16 +32,28 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor to handle 401 errors
+// Axios interceptor for handling 401 errors
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Clear auth state and redirect to login
-      localStorage.removeItem('accessToken');
-      useAuthStore.getState().logout();
-      window.location.href = '/auth/login'; // Force redirect
+  async (error) => {
+    const originalRequest = error.config;
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true; // Prevent infinite retry loop
+
+      try {
+        const newAccessToken = await useAuthStore.getState().refreshAccessToken();
+        // Update the Authorization header with the new token
+        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+        // Retry the original request
+        return axiosInstance(originalRequest);
+      } catch (refreshError) {
+        // If refresh fails, log out the user
+        useAuthStore.getState().logout();
+        return Promise.reject(refreshError);
+      }
     }
+
     return Promise.reject(error);
   }
 );
@@ -53,6 +65,10 @@ const AuthAPI = {
   signIn: async (credentials) => {
     const response = await axiosInstance.post('/auth/signIn', credentials);
     return response.data; // Returns { accessToken: "..." }
+  },
+   refreshToken: async (refreshToken) => {
+    const response = await axiosInstance.post(`/auth/refresh-token/${refreshToken}`);
+    return response.data; // Expecting { accessToken, refreshToken }
   },
 };
 

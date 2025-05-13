@@ -36,7 +36,6 @@ const UserTable = ({
                 Username
               </TableSortLabel>
             </TableCell>
-            <TableCell>Website ID</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -47,7 +46,6 @@ const UserTable = ({
               selected={selected.includes(user.id)}
             >
               <TableCell>{user.username}</TableCell>
-              <TableCell>{user.websiteId}</TableCell>
               <TableCell>
                 <IconButton
                   onClick={() => navigate(`/users/edit/${user.id}`)}

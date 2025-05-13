@@ -20,7 +20,6 @@ const UserForm = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    websiteId: '',
   });
   const [loading, setLoading] = useState(false);
 
@@ -32,7 +31,6 @@ const UserForm = () => {
         setFormData({
           username: user.username,
           password: '', // Don't prefill password for security
-          websiteId: user.websiteId,
         });
       } else {
         fetchUsers(); // Fetch users if not already loaded
@@ -89,15 +87,6 @@ const UserForm = () => {
             onChange={handleChange}
             fullWidth
             required={!isEdit} // Password optional for updates
-            disabled={loading}
-          />
-          <TextField
-            label="Website ID"
-            name="websiteId"
-            value={formData.websiteId}
-            onChange={handleChange}
-            fullWidth
-            required
             disabled={loading}
           />
           <Box sx={{ display: 'flex', gap: 2 }}>
