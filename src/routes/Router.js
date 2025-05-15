@@ -3,9 +3,6 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import ClientList from '../views/clients/ClientList';
 import ClientForm from '../views/clients/ClientForm';
 import ProtectedRoute from '../components/ProtectedRoute'; // Import ProtectedRoute
-import UserForm from '../views/users/UserForm';
-import UserList from '../views/users/UserList';
-
 /* ***Layouts**** */
 const FullLayout = lazy(() => import('../layouts/full/FullLayout'));
 const BlankLayout = lazy(() => import('../layouts/blank/BlankLayout'));
@@ -19,6 +16,16 @@ const Shadow = lazy(() => import('../views/utilities/Shadow'));
 const Error = lazy(() => import('../views/authentication/Error'));
 const Register = lazy(() => import('../views/authentication/Register'));
 const Login = lazy(() => import('../views/authentication/Login'));
+
+// system component path
+const HistoryList = lazy(() => import('../views/history/HistoryList'));
+const HistoryForm = lazy(() => import('../views/history/HistoryForm'));
+
+const UserList = lazy(() => import('../views/users/UserList'));
+const UserForm = lazy(() => import('../views/users/UserForm'));
+
+const LeadershipList = lazy(() => import('../views/leadership/LeadershipList'));
+const LeadershipForm = lazy(() => import('../views/leadership/LeadershipForm'));
 
 const BasicTable = lazy(() => import('../views/tables/BasicTable'));
 const ExAutoComplete = lazy(() =>
@@ -59,6 +66,12 @@ const Router = [
           { path: '/users', element: <UserList /> },
           { path: '/users/create', element: <UserForm /> },
           { path: '/users/edit/:id', element: <UserForm /> },
+          { path: '/history', element: <HistoryList /> },
+          { path: '/history/create', element: <HistoryForm /> },
+          { path: '/history/edit/:id', element: <HistoryForm /> },
+          { path: '/leadership', element: <LeadershipList /> },
+          { path: '/leadership/create', element: <LeadershipForm /> },
+          { path: '/leadership/edit/:id', element: <LeadershipForm /> },
           { path: '*', element: <Navigate to="/auth/404" /> },
         ],
       },

@@ -6,11 +6,12 @@ const isTokenExpired = (token) => {
   if (!token) return true;
   try {
     const decoded = jwtDecode(token);
-    const currentTime = Date.now() / 1000; // Current time in seconds
-    return decoded.exp < currentTime; // Token is expired if exp is in the past
+    console.log('Decoded token:', decoded); // Debug
+    const currentTime = Date.now() / 1000;
+    return decoded.exp < currentTime;
   } catch (error) {
     console.error('Error decoding token:', error);
-    return true; // Treat as expired if decoding fails
+    return true;
   }
 };
 
@@ -25,6 +26,8 @@ const getTokenExpiration = (token) => {
     return 0;
   }
 };
+
+let refreshPromise = null; // Track ongoing refresh promise
 
 const useAuthStore = create((set,get) => ({
   // State
@@ -61,43 +64,57 @@ const useAuthStore = create((set,get) => ({
     }
   },
 
+  
   refreshAccessToken: async () => {
-    try {
-      const { refreshToken } = get();
-      if (!refreshToken) {
-        throw new Error('No refresh token available');
-      }
-
-      const response = await agent.Auth.refreshToken(refreshToken);
-      const { accessToken, refreshToken: newRefreshToken } = response;
-
-      // Store new tokens in localStorage
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', newRefreshToken);
-
-      // Update state
-      set({
-        accessToken,
-        refreshToken: newRefreshToken,
-        isAuthenticated: true,
-        error: null,
-      });
-
-      return accessToken;
-    } catch (error) {
-      set({
-        error: error.response?.data?.message || 'Failed to refresh token',
-        isAuthenticated: false,
-        accessToken: null,
-        refreshToken: null,
-        user: null,
-      });
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      throw error;
+    const { isRefreshing, refreshToken } = get();
+    if (isRefreshing && refreshPromise) {
+      console.log('Refresh already in progress, waiting...');
+      return await refreshPromise; // Wait for ongoing refresh
     }
+    if (!refreshToken || isTokenExpired(refreshToken)) {
+      console.log('No valid refresh token available');
+      throw new Error('No valid refresh token available');
+    }
+    refreshPromise = (async () => {
+      set({ isRefreshing: true });
+      try {
+        console.log('Sending refresh token:', refreshToken);
+        const response = await agent.Auth.refreshToken(refreshToken);
+        console.log('Refresh response:', response);
+        const { accessToken, refreshToken: newRefreshToken } = response;
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', newRefreshToken);
+        set({
+          accessToken,
+          refreshToken: newRefreshToken,
+          isAuthenticated: true,
+          error: null,
+          isRefreshing: false,
+        });
+        return accessToken;
+      } catch (error) {
+        console.error('Refresh token error:', {
+          message: error.message,
+          response: error.response?.data,
+          status: error.response?.status,
+        });
+        set({
+          error: error.response?.data?.message || 'Failed to refresh token',
+          isAuthenticated: false,
+          accessToken: null,
+          refreshToken: null,
+          isRefreshing: false,
+        });
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        throw error;
+      } finally {
+        refreshPromise = null; // Clear promise after completion
+      }
+    })();
+    return await refreshPromise;
   },
-
+  
   logout: () => {
     // Clear localStorage
     localStorage.removeItem('accessToken');
@@ -116,29 +133,26 @@ const useAuthStore = create((set,get) => ({
     set({ error: null });
   },
 
-   initialize: () => {
-    const { accessToken, refreshToken } = get();
-    if (accessToken && isTokenExpired(accessToken) && refreshToken) {
-      get().refreshAccessToken();
-    }
-
-    const checkTokenExpiration = setInterval(() => {
-      const currentAccessToken = get().accessToken;
-      if (currentAccessToken) {
-        const expirationTime = getTokenExpiration(currentAccessToken); // Use getTokenExpiration
-        const currentTime = Date.now();
-        const timeUntilExpiration = expirationTime - currentTime;
-        const bufferTime = 5 * 60 * 1000; // 5 minutes in milliseconds
-
-        if (timeUntilExpiration < bufferTime) {
-          get().refreshAccessToken(); // Refresh if within 5 minutes of expiration
-        }
+ initialize: () => {
+  const { accessToken, refreshToken } = get();
+  if (accessToken && isTokenExpired(accessToken) && refreshToken) {
+    get().refreshAccessToken();
+  }
+  const checkTokenExpiration = setInterval(() => {
+    const { accessToken, isRefreshing } = get();
+    if (accessToken && !isRefreshing) {
+      const expirationTime = getTokenExpiration(accessToken);
+      const currentTime = Date.now();
+      const timeUntilExpiration = expirationTime - currentTime;
+      const bufferTime = 5 * 60 * 1000; // 5 minutes
+      if (expirationTime > 0 && timeUntilExpiration < bufferTime) {
+        console.log('Token nearing expiration, refreshing...'); // Debug
+        get().refreshAccessToken();
       }
-    }, 30 * 1000); // Check every 30 seconds for more responsiveness
-
-    return () => clearInterval(checkTokenExpiration);
-  },
-
+    }
+  }, 60 * 1000); // Check every 60 seconds (less aggressive)
+  return () => clearInterval(checkTokenExpiration);
+},
 }));
 
 // Call initialize on store creation

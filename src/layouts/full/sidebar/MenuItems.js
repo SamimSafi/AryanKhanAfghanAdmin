@@ -36,6 +36,18 @@ const Menuitems = [
     href: '/users',
   },
   {
+    id: uniqueId(),
+    title: 'History',
+    icon: IconAperture,
+    href: '/history',
+  },
+  {
+    id: uniqueId(),
+    title: 'Leadership',
+    icon: IconAperture,
+    href: '/leadership',
+  },
+  {
     navlabel: true,
     subheader: 'Utilities',
   },

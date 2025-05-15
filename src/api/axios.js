@@ -8,25 +8,37 @@ const axiosInstance = axios.create({
 });
 
 // Optional: Move interceptor setup to a separate function to avoid circular dependencies
-export const setupInterceptors = (authStore) => {
+export const setupInterceptors = () => {
+  // Request interceptor to set Authorization header with access token
+  axiosInstance.interceptors.request.use(
+    (config) => {
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken) {
+        config.headers['Authorization'] = `Bearer ${accessToken}`;
+        console.log('Set Authorization header with accessToken:', accessToken); // Debug
+      } else {
+        console.warn('No access token found in localStorage'); // Debug
+      }
+      return config;
+    },
+    (error) => {
+      console.error('Request interceptor error:', error);
+      return Promise.reject(error);
+    }
+  );
+
+  // Response interceptor (unchanged from your latest request)
   axiosInstance.interceptors.response.use(
     (response) => response,
-    async (error) => {
-      const originalRequest = error.config;
-      if (error.response?.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-        try {
-          const newAccessToken = await authStore.getState().refreshAccessToken();
-          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-          return axiosInstance(originalRequest);
-        } catch (refreshError) {
-          authStore.getState().logout();
-          return Promise.reject(refreshError);
-        }
-      }
+    (error) => {
+      console.error('Axios error:', {
+        status: error.response?.status,
+        data: error.response?.data,
+      });
       return Promise.reject(error);
     }
   );
 };
+
 
 export default axiosInstance;

@@ -15,9 +15,18 @@ const AuthAPI = {
     const response = await axiosInstance.post('/auth/signIn', credentials);
     return response.data; // Returns { accessToken: "..." }
   },
-   refreshToken: async (refreshToken) => {
-    const response = await axiosInstance.post(`/auth/refresh-token/${refreshToken}`);
-    return response.data; // Expecting { accessToken, refreshToken }
+  refreshToken: async (refreshToken) => {
+    try {
+      const response = await axiosInstance.post(`/auth/refresh-token/${ refreshToken }`);
+      return response.data; // Expect { accessToken, refreshToken }
+    } catch (error) {
+      console.error('agent.Auth.refreshToken error:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+      });
+      throw error;
+    }
   },
 };
 
@@ -47,6 +56,80 @@ const UserAPI = {
     const response = await axiosInstance.get(`/user/${userId}`);
     return response.data;
   },
+};
+
+// History API calls
+const HistoryAPI = {
+    fetchHistorys: async () => {
+    const response = await axiosInstance.get('/history');
+    return response.data;
+  },
+  createHistory: async (HistoryData) => {
+    const response = await axiosInstance.post('/history', HistoryData);
+    return response.data;
+  },
+   updateHistory: async (id, HistoryData) => {
+    const response = await axiosInstance.put(`/history/${id}`, HistoryData);
+    return response.data;
+  },
+  deleteHistory: async (HistoryId) => {
+    const response = await axiosInstance.delete(`/history/${HistoryId}`);
+    return response.data;
+  },
+  getHistory: async (HistoryId) => {
+    const response = await axiosInstance.get(`/history/${HistoryId}`);
+    return response.data;
+  },
+   activateHistory: async (id) => {
+    const response = await axiosInstance.post(`/history/${id}/activate`);
+    return response.data;
+  },
+  deactivateHistory: async (id) => {
+    const response = await axiosInstance.post(`/history/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
+
+// LeaderShip API calls
+const LeadershipAPI = {
+    fetchLeadership: async () => {
+    const response = await axiosInstance.get('/leadership');
+    return response.data;
+  },
+  createLeadership: async (LeadershipData) => {
+   const response = await axiosInstance.post('/leadership', LeadershipData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+   updateLeadership: async (id, LeadershipData) => {
+    const response = await axiosInstance.put(`/leadership/${id}`, LeadershipData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+  deleteLeadership: async (LeadershipId) => {
+    const response = await axiosInstance.delete(`/leadership/${LeadershipId}`);
+    return response.data;
+  },
+  getLeadership: async (LeadershipId) => {
+    const response = await axiosInstance.get(`/leadership/${LeadershipId}`);
+    return response.data;
+  },
+   activateLeadership: async (id) => {
+    const response = await axiosInstance.post(`/leadership/${id}/activate`);
+    return response.data;
+  },
+  deactivateLeadership: async (id) => {
+    const response = await axiosInstance.post(`/leadership/${id}/deactivate`);
+    return response.data;
+  },
+  
 };
 
 const ClientAPI = {
@@ -96,6 +179,8 @@ const agent = {
   // Add other resource APIs here (e.g., Products, Users)
   // Products: ProductAPI,
   Users: UserAPI,
+  History: HistoryAPI,
+  Leadership: LeadershipAPI,
 };
 
 export default agent;
