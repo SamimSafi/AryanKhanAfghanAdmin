@@ -27,6 +27,12 @@ const UserForm = lazy(() => import('../views/users/UserForm'));
 const LeadershipList = lazy(() => import('../views/leadership/LeadershipList'));
 const LeadershipForm = lazy(() => import('../views/leadership/LeadershipForm'));
 
+const MissionList = lazy(() => import('../views/mission/MissionList'));
+const MissionForm = lazy(() => import('../views/mission/MissionForm'));
+
+const PartnershipList = lazy(() => import('../views/partnership/PartnershipList'));
+const PartnershipForm = lazy(() => import('../views/partnership/PartnershipForm'));
+
 const BasicTable = lazy(() => import('../views/tables/BasicTable'));
 const ExAutoComplete = lazy(() =>
   import('../views/form-elements/ExAutoComplete')
@@ -72,6 +78,12 @@ const Router = [
           { path: '/leadership', element: <LeadershipList /> },
           { path: '/leadership/create', element: <LeadershipForm /> },
           { path: '/leadership/edit/:id', element: <LeadershipForm /> },
+          { path: '/mission', element: <MissionList /> },
+          { path: '/mission/create', element: <MissionForm /> },
+          { path: '/mission/edit/:id', element: <MissionForm /> },
+          { path: '/partnership', element: <PartnershipList /> },
+          { path: '/partnership/create', element: <PartnershipForm /> },
+          { path: '/partnership/edit/:id', element: <PartnershipForm /> },
           { path: '*', element: <Navigate to="/auth/404" /> },
         ],
       },

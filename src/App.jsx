@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import  { Suspense, useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, Box, CircularProgress } from '@mui/material';
 import { ToastContainer } from 'react-toastify';

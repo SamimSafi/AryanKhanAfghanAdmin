@@ -15,6 +15,7 @@ import {
   Switch,
 } from '@mui/material';
 import useLeadershipStore from '../../context/leadershipStore';
+import FileUpload from '../../components/FileUpload';
 
 const LeadershipForm = () => {
   const { id } = useParams();
@@ -75,24 +76,6 @@ const LeadershipForm = () => {
     }
   }, [id, isEdit, getLeadership, navigate, setValue]);
 
-  // Handle file input change
-  const handleFileChange = (e, onChange) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Validate file type (image only)
-      if (!file.type.startsWith('image/')) {
-        toast.error('Please upload an image file.');
-        return;
-      }
-      // Validate file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error('File size exceeds 5MB.');
-        return;
-      }
-      onChange(file); // Store File object
-    }
-  };
-
   // Handle form submission
   const onSubmit = async (data) => {
     try {
@@ -136,7 +119,7 @@ const LeadershipForm = () => {
           <Stack spacing={3}>
             {/* Full Name Fields */}
             <Grid container spacing={2}>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Full Name (English)"
                   {...register('fullName', { required: 'Full Name (English) is required' })}
@@ -146,7 +129,7 @@ const LeadershipForm = () => {
                   helperText={errors.fullName?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Full Name (Pashto)"
                   {...register('fullName_pashto', { required: 'Full Name (Pashto) is required' })}
@@ -156,9 +139,7 @@ const LeadershipForm = () => {
                   helperText={errors.fullName_pashto?.message}
                 />
               </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
+                   <Grid item xs={4}>
                 <TextField
                   label="Full Name (Dari)"
                   {...register('fullName_dari', { required: 'Full Name (Dari) is required' })}
@@ -172,7 +153,7 @@ const LeadershipForm = () => {
 
             {/* Job Fields */}
             <Grid container spacing={2}>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Job (English)"
                   {...register('job', { required: 'Job (English) is required' })}
@@ -182,7 +163,7 @@ const LeadershipForm = () => {
                   helperText={errors.job?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Job (Pashto)"
                   {...register('job_pashto', { required: 'Job (Pashto) is required' })}
@@ -192,9 +173,7 @@ const LeadershipForm = () => {
                   helperText={errors.job_pashto?.message}
                 />
               </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
+                <Grid item xs={4}>
                 <TextField
                   label="Job (Dari)"
                   {...register('job_dari', { required: 'Job (Dari) is required' })}
@@ -246,50 +225,7 @@ const LeadershipForm = () => {
                   helperText={errors.description_dari?.message}
                 />
               </Grid>
-            </Grid>
-
-            {/* File Upload and IsActive */}
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Controller
-                  name="file"
-                  control={control}
-                  rules={{ required: isEdit ? false : 'Image is required' }}
-                  render={({ field: { onChange, value }, fieldState: { error } }) => (
-                    <Box>
-                      <Button
-                        variant="contained"
-                        component="label"
-                        disabled={isSubmitting}
-                        sx={{ mb: 1 }}
-                      >
-                        Upload Image
-                        <input
-                          type="file"
-                          accept="image/*"
-                          hidden
-                          onChange={(e) => handleFileChange(e, onChange)}
-                        />
-                      </Button>
-                      {value && (
-                        <Box sx={{ mt: 1 }}>
-                          <img
-                            src={URL.createObjectURL(value)}
-                            alt="Preview"
-                            style={{ maxWidth: '200px', maxHeight: '200px' }}
-                          />
-                        </Box>
-                      )}
-                      {error && (
-                        <Typography color="error" variant="caption">
-                          {error.message}
-                        </Typography>
-                      )}
-                    </Box>
-                  )}
-                />
-              </Grid>
-              <Grid item xs={6}>
+                <Grid item xs={6}>
                 <FormControlLabel
                   control={
                     <Controller
@@ -307,7 +243,21 @@ const LeadershipForm = () => {
                   label="Active"
                 />
               </Grid>
+               <FileUpload
+                              control={control}
+                              name="file"
+                              title={isEdit ? 'Update Image' : 'Upload Image'}
+                              isEdit={isEdit}
+                              isSubmitting={isSubmitting}
+                              handleFileChange={(e, onChange) => {
+                                const file = e.target.files[0] || e.dataTransfer.files[0];
+                                if (file) onChange(file);
+                              }}
+                            />
             </Grid>
+
+             {/* File Upload and IsActive */}
+                    
 
             {/* Form Actions */}
             <Box sx={{ display: 'flex', gap: 2, pt: 2 }}>

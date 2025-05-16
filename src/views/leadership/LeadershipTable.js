@@ -9,10 +9,12 @@ import {
   IconButton,
   Paper,
   TableSortLabel,
+  Typography,
 } from '@mui/material';
 import { Cancel, CheckCircle, Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import useLeadershipStore from '../../context/leadershipStore';
+import { baseURL } from '../../api/baseURL';
 
 const LeadershipFormTable = ({
   Leadership,
@@ -45,6 +47,7 @@ const LeadershipFormTable = ({
             <TableCell>Description</TableCell>
             <TableCell>Description Pashto</TableCell>
             <TableCell>Description Dari</TableCell>
+            <TableCell>Image</TableCell>
             <TableCell>Is Active</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
@@ -64,6 +67,25 @@ const LeadershipFormTable = ({
               <TableCell>{Leadership.description}</TableCell>
               <TableCell>{Leadership.description_pashto}</TableCell>
               <TableCell>{Leadership.description_dari}</TableCell>
+              <TableCell> {Leadership.photoPath ? (
+                      <img
+                        src={baseURL+`${Leadership.photoPath.replace(/\\/g, '/')}`}
+                        alt={Leadership.fullName}
+                        style={{
+                          maxWidth: '50px',
+                          maxHeight: '50px',
+                          objectFit: 'cover',
+                          borderRadius: '4px',
+                        }}
+                        onError={(e) => {
+                          console.error('Image load error:', Leadership.photoPath);
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <Typography variant="caption">No image</Typography>
+                    )}
+                    </TableCell>
               <TableCell>
                         {Leadership.isActive ? (
                           <span style={{ backgroundColor: 'green', color: 'white', padding: '4px 8px', borderRadius: '4px' }}>

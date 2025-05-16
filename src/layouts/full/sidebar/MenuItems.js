@@ -48,6 +48,18 @@ const Menuitems = [
     href: '/leadership',
   },
   {
+    id: uniqueId(),
+    title: 'Mission',
+    icon: IconAperture,
+    href: '/mission',
+  },
+  {
+    id: uniqueId(),
+    title: 'Partnership',
+    icon: IconAperture,
+    href: '/partnership',
+  },
+  {
     navlabel: true,
     subheader: 'Utilities',
   },

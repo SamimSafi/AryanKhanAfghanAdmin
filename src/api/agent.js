@@ -132,6 +132,79 @@ const LeadershipAPI = {
   
 };
 
+// Mission API calls
+const MissionAPI = {
+    fetchMission: async () => {
+    const response = await axiosInstance.get('/mission');
+    return response.data;
+  },
+  createMission: async (MissionData) => {
+    const response = await axiosInstance.post('/mission', MissionData);
+    return response.data;
+  },
+   updateMission: async (id, MissionData) => {
+    const response = await axiosInstance.put(`/mission/${id}`, MissionData);
+    return response.data;
+  },
+  deleteMission: async (MissionId) => {
+    const response = await axiosInstance.delete(`/mission/${MissionId}`);
+    return response.data;
+  },
+  getMission: async (MissionId) => {
+    const response = await axiosInstance.get(`/mission/${MissionId}`);
+    return response.data;
+  },
+   activateMission: async (id) => {
+    const response = await axiosInstance.post(`/mission/${id}/activate`);
+    return response.data;
+  },
+  deactivateMission: async (id) => {
+    const response = await axiosInstance.post(`/mission/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
+
+const PartnershipAPI = {
+    fetchPartnership: async () => {
+    const response = await axiosInstance.get('/partnership');
+    return response.data;
+  },
+  createPartnership: async (PartnershipData) => {
+   const response = await axiosInstance.post('/partnership', PartnershipData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+   updatePartnership: async (id, PartnershipData) => {
+    const response = await axiosInstance.put(`/partnership/${id}`, PartnershipData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+  deletePartnership: async (PartnershipId) => {
+    const response = await axiosInstance.delete(`/partnership/${PartnershipId}`);
+    return response.data;
+  },
+  getPartnership: async (PartnershipId) => {
+    const response = await axiosInstance.get(`/partnership/${PartnershipId}`);
+    return response.data;
+  },
+   activatePartnership: async (id) => {
+    const response = await axiosInstance.post(`/partnership/${id}/activate`);
+    return response.data;
+  },
+  deactivatePartnership: async (id) => {
+    const response = await axiosInstance.post(`/partnership/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
+
 const ClientAPI = {
   fetchClients: async () => {
     try {
@@ -181,6 +254,8 @@ const agent = {
   Users: UserAPI,
   History: HistoryAPI,
   Leadership: LeadershipAPI,
+  Partnership: PartnershipAPI,
+  Mission: MissionAPI,
 };
 
 export default agent;
