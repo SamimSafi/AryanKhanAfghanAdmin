@@ -39,6 +39,9 @@ const ServicesForm = lazy(() => import('../views/services/ServicesForm'));
 const SlidersList = lazy(() => import('../views/sliders/SlidersList'));
 const SlidersForm = lazy(() => import('../views/sliders/SlidersForm'));
 
+const SuccessSnapshotsList = lazy(() => import('../views/successSnapshots/SuccessSnapshotsList'));
+const SuccessSnapshotsForm = lazy(() => import('../views/successSnapshots/SuccessSnapshotsForm'));
+
 const BasicTable = lazy(() => import('../views/tables/BasicTable'));
 const ExAutoComplete = lazy(() =>
   import('../views/form-elements/ExAutoComplete')
@@ -96,6 +99,9 @@ const Router = [
           { path: '/sliders', element: <SlidersList /> },
           { path: '/sliders/create', element: <SlidersForm /> },
           { path: '/sliders/edit/:id', element: <SlidersForm /> },
+          { path: '/successSnapshots', element: <SuccessSnapshotsList /> },
+          { path: '/successSnapshots/create', element: <SuccessSnapshotsForm /> },
+          { path: '/successSnapshots/edit/:id', element: <SuccessSnapshotsForm /> },
           { path: '*', element: <Navigate to="/auth/404" /> },
         ],
       },

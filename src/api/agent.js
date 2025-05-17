@@ -279,6 +279,40 @@ const SlidersAPI = {
   },
   
 };
+
+
+// SuccessSnapshots API calls
+const SuccessSnapshotsAPI = {
+    fetchSuccessSnapshots: async () => {
+    const response = await axiosInstance.get('/success-snapshots');
+    return response.data;
+  },
+  createSuccessSnapshots: async (SuccessSnapshotsData) => {
+    const response = await axiosInstance.post('/success-snapshots', SuccessSnapshotsData);
+    return response.data;
+  },
+   updateSuccessSnapshots: async (id, SuccessSnapshotsData) => {
+    const response = await axiosInstance.put(`/success-snapshots/${id}`, SuccessSnapshotsData);
+    return response.data;
+  },
+  deleteSuccessSnapshots: async (SuccessSnapshotsId) => {
+    const response = await axiosInstance.delete(`/success-snapshots/${SuccessSnapshotsId}`);
+    return response.data;
+  },
+  getSuccessSnapshots: async (SuccessSnapshotsId) => {
+    const response = await axiosInstance.get(`/success-snapshots/${SuccessSnapshotsId}`);
+    return response.data;
+  },
+   activateSuccessSnapshots: async (id) => {
+    const response = await axiosInstance.post(`/success-snapshots/${id}/activate`);
+    return response.data;
+  },
+  deactivateSuccessSnapshots: async (id) => {
+    const response = await axiosInstance.post(`/success-snapshots/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
 // Centralized agent exporting all resource APIs
 const agent = {
   Auth:AuthAPI,
@@ -291,6 +325,7 @@ const agent = {
   Mission: MissionAPI,
   Services: ServicesAPI,
   Sliders: SlidersAPI,
+  SuccessSnapshots: SuccessSnapshotsAPI,
 };
 
 export default agent;

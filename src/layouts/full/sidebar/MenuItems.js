@@ -72,6 +72,12 @@ const Menuitems = [
     href: '/sliders',
   },
   {
+    id: uniqueId(),
+    title: 'Success Snapshots',
+    icon: IconAperture,
+    href: '/successSnapshots',
+  },
+  {
     navlabel: true,
     subheader: 'Utilities',
   },
