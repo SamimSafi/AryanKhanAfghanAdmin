@@ -1,5 +1,5 @@
 // src/components/LeadershipForm.js
-import  { useEffect } from 'react';
+import  { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -16,13 +16,14 @@ import {
 } from '@mui/material';
 import useLeadershipStore from '../../context/leadershipStore';
 import FileUpload from '../../components/FileUpload';
+import { urlToFileObject } from '../../utils/fileUtils';
 
 const LeadershipForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { createLeadership, updateLeadership, getLeadership } = useLeadershipStore();
   const isEdit = !!id;
-
+const [leadershipData, setLeadershipData] = useState(null);
   const {
     register,
     handleSubmit,
@@ -52,6 +53,7 @@ const LeadershipForm = () => {
         try {
           const leadership = await getLeadership(id);
           if (leadership) {
+            setLeadershipData(leadershipData);
             setValue('fullName', leadership.fullName || '');
             setValue('fullName_pashto', leadership.fullName_pashto || '');
             setValue('fullName_dari', leadership.fullName_dari || '');
@@ -62,6 +64,8 @@ const LeadershipForm = () => {
             setValue('description_pashto', leadership.description_pashto || '');
             setValue('description_dari', leadership.description_dari || '');
             setValue('isActive', !!leadership.isActive); // Ensure boolean
+             const logoFile = await urlToFileObject(leadership.photoPath, 'logo');
+                    setValue('file', logoFile); // Set single file object
             // Note: 'file' is not pre-populated; user must re-upload
           } else {
             toast.error('Leadership record not found.');
@@ -74,7 +78,7 @@ const LeadershipForm = () => {
       };
       fetchLeadershipData();
     }
-  }, [id, isEdit, getLeadership, navigate, setValue]);
+  }, [id, isEdit, getLeadership, navigate, setValue, leadershipData]);
 
   // Handle form submission
   const onSubmit = async (data) => {
@@ -253,6 +257,7 @@ const LeadershipForm = () => {
                                 const file = e.target.files[0] || e.dataTransfer.files[0];
                                 if (file) onChange(file);
                               }}
+                               existingImage={isEdit ? leadershipData?.logoPath : null} // Pass existing icon path
                             />
             </Grid>
 

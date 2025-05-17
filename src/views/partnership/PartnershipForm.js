@@ -1,5 +1,5 @@
 // src/components/PartnershipForm.js
-import  { useEffect } from 'react';
+import  { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -13,13 +13,14 @@ import {
 } from '@mui/material';
 import usePartnershipStore from '../../context/partnershipStore';
 import FileUpload from '../../components/FileUpload';
+import { urlToFileObject } from '../../utils/fileUtils';
 
 const PartnershipForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { createPartnership, updatePartnership, getPartnership } = usePartnershipStore();
   const isEdit = !!id;
-
+  const [partnershipData, setPartnershipData] = useState(null);
   const {
     register,
     handleSubmit,
@@ -40,7 +41,11 @@ const PartnershipForm = () => {
         try {
           const partnership = await getPartnership(id);
           if (partnership) {
+            setPartnershipData(partnership);
             setValue('link', partnership.link || '');
+
+              const logoFile = await urlToFileObject(partnership.logoPath, 'logo');
+        setValue('file', logoFile); // Set single file object
             // Note: 'file' is not pre-populated; user must re-upload
           } else {
             toast.error('Partnership record not found.');
@@ -108,6 +113,7 @@ const PartnershipForm = () => {
                     const file = e.target.files[0] || e.dataTransfer.files[0];
                     if (file) onChange(file);
                   }}
+                   existingImage={isEdit ? partnershipData?.logoPath : null} // Pass existing icon path
                 />
 
             {/* Form Actions */}

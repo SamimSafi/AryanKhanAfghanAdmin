@@ -60,6 +60,18 @@ const Menuitems = [
     href: '/partnership',
   },
   {
+    id: uniqueId(),
+    title: 'Services',
+    icon: IconAperture,
+    href: '/services',
+  },
+  {
+    id: uniqueId(),
+    title: 'Sliders',
+    icon: IconAperture,
+    href: '/sliders',
+  },
+  {
     navlabel: true,
     subheader: 'Utilities',
   },

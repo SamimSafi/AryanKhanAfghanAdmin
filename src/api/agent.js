@@ -1,11 +1,4 @@
-import { toast } from 'react-toastify';
-import { v4 as uuidv4 } from 'uuid';
 import axiosInstance from './axios';
-
-// Simulate server latency for all API calls
-const simulateLatency = () =>
-  new Promise((resolve) => setTimeout(resolve, 500));
-
 
 // Client-related API endpoints
 
@@ -205,49 +198,89 @@ const PartnershipAPI = {
   
 };
 
-const ClientAPI = {
-  fetchClients: async () => {
-    try {
-      const response = await fetch('/clients.json');
-      if (!response.ok) throw new Error('Failed to fetch clients');
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      toast.error('Failed to load clients.');
-      throw error;
-    }
+// Services API calls
+const ServicesAPI = {
+    fetchServices: async () => {
+    const response = await axiosInstance.get('/services');
+    return response.data;
   },
-
-  createClient: async (clientData) => {
-    await simulateLatency();
-    const newClient = { ...clientData, id: uuidv4() };
-    toast.success('Client created successfully!');
-    return newClient;
+  createServices: async (ServicesData) => {
+   const response = await axiosInstance.post('/services', ServicesData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
   },
-
-  updateClient: async (id, updatedData) => {
-    await simulateLatency();
-    const updatedClient = { id, ...updatedData };
-    toast.success('Client updated successfully!');
-    return updatedClient;
+   updateServices: async (id, ServicesData) => {
+    const response = await axiosInstance.put(`/services/${id}`, ServicesData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
   },
-
-  deleteClient: async (id) => {
-    await simulateLatency();
-    toast.success('Client deleted successfully!');
-    return id;
+  deleteServices: async (ServicesId) => {
+    const response = await axiosInstance.delete(`/services/${ServicesId}`);
+    return response.data;
   },
-
-  bulkDeleteClients: async (ids) => {
-    await simulateLatency();
-    toast.success('Selected clients deleted successfully!');
-    return ids;
+  getServices: async (ServicesId) => {
+    const response = await axiosInstance.get(`/services/${ServicesId}`);
+    return response.data;
   },
+   activateServices: async (id) => {
+    const response = await axiosInstance.post(`/services/${id}/activate`);
+    return response.data;
+  },
+  deactivateServices: async (id) => {
+    const response = await axiosInstance.post(`/services/${id}/deactivate`);
+    return response.data;
+  },
+  
 };
 
+// Sliders API calls
+const SlidersAPI = {
+    fetchSliders: async () => {
+    const response = await axiosInstance.get('/sliders');
+    return response.data;
+  },
+  createSliders: async (SlidersData) => {
+   const response = await axiosInstance.post('/sliders', SlidersData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+   updateSliders: async (id, SlidersData) => {
+    const response = await axiosInstance.put(`/sliders/${id}`, SlidersData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+  deleteSliders: async (SlidersId) => {
+    const response = await axiosInstance.delete(`/sliders/${SlidersId}`);
+    return response.data;
+  },
+  getSliders: async (SlidersId) => {
+    const response = await axiosInstance.get(`/sliders/${SlidersId}`);
+    return response.data;
+  },
+   activateSliders: async (id) => {
+    const response = await axiosInstance.post(`/sliders/${id}/activate`);
+    return response.data;
+  },
+  deactivateSliders: async (id) => {
+    const response = await axiosInstance.post(`/sliders/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
 // Centralized agent exporting all resource APIs
 const agent = {
-  Clients: ClientAPI,
   Auth:AuthAPI,
   // Add other resource APIs here (e.g., Products, Users)
   // Products: ProductAPI,
@@ -256,6 +289,8 @@ const agent = {
   Leadership: LeadershipAPI,
   Partnership: PartnershipAPI,
   Mission: MissionAPI,
+  Services: ServicesAPI,
+  Sliders: SlidersAPI,
 };
 
 export default agent;

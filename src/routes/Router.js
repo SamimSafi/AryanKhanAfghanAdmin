@@ -33,6 +33,12 @@ const MissionForm = lazy(() => import('../views/mission/MissionForm'));
 const PartnershipList = lazy(() => import('../views/partnership/PartnershipList'));
 const PartnershipForm = lazy(() => import('../views/partnership/PartnershipForm'));
 
+const ServicesList = lazy(() => import('../views/services/ServicesList'));
+const ServicesForm = lazy(() => import('../views/services/ServicesForm'));
+
+const SlidersList = lazy(() => import('../views/sliders/SlidersList'));
+const SlidersForm = lazy(() => import('../views/sliders/SlidersForm'));
+
 const BasicTable = lazy(() => import('../views/tables/BasicTable'));
 const ExAutoComplete = lazy(() =>
   import('../views/form-elements/ExAutoComplete')
@@ -84,6 +90,12 @@ const Router = [
           { path: '/partnership', element: <PartnershipList /> },
           { path: '/partnership/create', element: <PartnershipForm /> },
           { path: '/partnership/edit/:id', element: <PartnershipForm /> },
+          { path: '/services', element: <ServicesList /> },
+          { path: '/services/create', element: <ServicesForm /> },
+          { path: '/services/edit/:id', element: <ServicesForm /> },
+          { path: '/sliders', element: <SlidersList /> },
+          { path: '/sliders/create', element: <SlidersForm /> },
+          { path: '/sliders/edit/:id', element: <SlidersForm /> },
           { path: '*', element: <Navigate to="/auth/404" /> },
         ],
       },

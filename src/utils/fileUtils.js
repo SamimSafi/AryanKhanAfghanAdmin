@@ -1,3 +1,5 @@
+import { baseURL } from "../api/baseURL";
+
 export const convertFileToBinaryString = async (file) => {
   if (!file) {
     throw new Error('No file provided');
@@ -23,3 +25,9 @@ export const convertFileToBinaryString = async (file) => {
     throw error;
   }
 };
+
+export const  urlToFileObject = async (imageUrl, name) =>{
+  const response = await fetch(`${baseURL}${imageUrl.replace(/\\/g, '/')}`);
+  const blob = await response.blob();
+  return new File([blob], name, { type: blob.type });
+}

@@ -1,10 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { Box, Typography, Paper, IconButton, Grid } from '@mui/material';
 import { CloudUpload, Delete } from '@mui/icons-material';
+import { baseURL } from '../api/baseURL';
 
-const FileUpload = ({ control, name, title, isEdit, isSubmitting, handleFileChange }) => {
-  const [dragOver, setDragOver] = useState(false);
+const FileUpload = ({
+  control,
+  name,
+  title,
+  isEdit,
+  isSubmitting,
+  handleFileChange,
+  existingImage,
+}) => {
+   const [dragOver, setDragOver] = useState(false);
+  const [existingFile, setExistingFile] = useState(null);
+
+  // Convert existing image URL to File object when component mounts
+  useEffect(() => {
+    const convertExistingImage = async () => {
+      if (existingImage && !(existingImage instanceof File)) {
+        try {
+          const response = await fetch(`${baseURL}${existingImage.replace(/\\/g, '/')}`);
+          const blob = await response.blob();
+          const file = new File([blob], 'existing-image', { type: blob.type });
+          setExistingFile(file);
+        } catch (error) {
+          console.error('Error loading existing image:', error);
+        }
+      }
+    };
+
+    convertExistingImage();
+  }, [existingImage]);
 
   return (
     <Grid item lg={12} xs={12} sm={12} md={12}>
@@ -12,127 +40,160 @@ const FileUpload = ({ control, name, title, isEdit, isSubmitting, handleFileChan
         name={name}
         control={control}
         rules={{ required: isEdit ? false : `${title} is required` }}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
-          <Box
-            sx={{
-              width: '100%', // Take full width of the Grid item
+        render={({ field: { onChange, value }, fieldState: { error } }) => {
+          // Determine preview source
+          let previewSrc = null;
+          
+          if (value instanceof File) {
+            // New file upload
+            previewSrc = URL.createObjectURL(value);
+          } else if (existingFile) {
+            // Existing file that we converted
+            previewSrc = URL.createObjectURL(existingFile);
+          }
+
+          // Clean up blob URLs
+          useEffect(() => {
+            return () => {
+              if (previewSrc && previewSrc.startsWith('blob:')) {
+                URL.revokeObjectURL(previewSrc);
+              }
+            };
+          }, [previewSrc]);
+
+          const handleFileUpload = (e) => {
+            const file = e.target.files[0] || e.dataTransfer.files[0];
+            if (file) {
+              onChange(file); // This will replace the existing file
+              setExistingFile(null); // Clear the existing file reference
+            }
+          };
+
+          const handleRemove = () => {
+            onChange(null);
+            setExistingFile(null);
+          };
+
+          return (
+            <Box sx={{ width: '100%' }}>
+              <Paper
+                elevation={dragOver ? 8 : 2}
+                sx={{
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  position: 'relative',
+                  bgcolor: dragOver  ? 'action.hover' : 'background.paper',
+                  transition: 'all 0.3s ease',
+                  border: error ? '1px solid' : '1px dashed',
+                  borderColor: error ? 'error.main' : 'grey.400',
+                  p: previewSrc ? 0 : 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  minHeight: { xs: 150, sm: 200 },
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  '&:hover': {
+                    bgcolor: 'action.hover',
+                  },
+                }}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDragOver(true);
+                }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={(e) => {
+              e.preventDefault();
+              setDragOver(false);
+              handleFileUpload(e);
             }}
-          >
-            <Paper
-              elevation={dragOver ? 8 : 2}
-              sx={{
-                borderRadius: 2,
-                overflow: 'hidden',
-                position: 'relative',
-                bgcolor: dragOver ? 'action.hover' : 'background.paper',
-                transition: 'all 0.3s ease',
-                border: error ? '1px solid' : '1px dashed',
-                borderColor: error ? 'error.main' : 'grey.400',
-                p: value ? 0 : 2,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: { xs: 150, sm: 200 }, // Responsive height
-                width: '100%', // Ensure Paper takes full width
-                boxSizing: 'border-box', // Prevent padding issues
-                '&:hover': {
-                  bgcolor: 'action.hover',
-                },
-              }}
-              onDragOver={(e) => {
-                e.preventDefault();
-                setDragOver(true);
-              }}
-              onDragLeave={() => setDragOver(false)}
-              onDrop={(e) => {
-                e.preventDefault();
-                setDragOver(false);
-                if (e.dataTransfer.files[0]) {
-                  handleFileChange(e, onChange);
-                }
-              }}
-            >
-              {value ? (
-                <Box sx={{ position: 'relative', width: '100%', height: { xs: 150, sm: 200 } }}>
-                  <img
-                    src={URL.createObjectURL(value)}
-                    alt="Preview"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'contain', // Fit entire image without cropping
-                      borderRadius: 8,
-                      objectPosition: 'center', // Center the image
-                    }}
-                  />
-                  <IconButton
-                    size="small"
-                    sx={{
-                      position: 'absolute',
-                      top: 8,
-                      right: 8,
-                      bgcolor: 'background.paper',
-                      '&:hover': { bgcolor: 'error.main', color: 'white' },
-                    }}
-                    onClick={() => onChange(null)}
-                    disabled={isSubmitting}
-                  >
-                    <Delete fontSize="small" />
-                  </IconButton>
-                </Box>
-              ) : (
-                <Box
-                  sx={{
-                    textAlign: 'center',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 1,
-                    width: '100%', // Ensure content scales
-                  }}
-                  component="label"
-                >
-                  <CloudUpload
-                    sx={{
-                      fontSize: { xs: 30, sm: 40 },
-                      color: error ? 'error.main' : 'primary.main',
-                    }}
-                  />
-                  <Typography
-                    variant="body1"
-                    color={error ? 'error.main' : 'text.primary'}
-                    sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
-                  >
-                    {title}
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
-                  >
-                    Drag & drop or click to upload
-                  </Typography>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    hidden
-                    onChange={(e) => handleFileChange(e, onChange)}
-                    disabled={isSubmitting}
-                  />
-                </Box>
-              )}
-            </Paper>
-            {error && (
-              <Typography
-                color="error"
-                variant="caption"
-                sx={{ mt: 1, fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
               >
-                {error.message}
-              </Typography>
-            )}
-          </Box>
-        )}
+                {previewSrc ? (
+                  <Box sx={{ position: 'relative', width: '100%', height: { xs: 150, sm: 200 } }}>
+                    <img
+                      src={previewSrc}
+                      alt="Preview"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        borderRadius: 8,
+                        objectPosition: 'center',
+                      }}
+                      onError={(e) => {
+                        console.error('Image load error:', previewSrc);
+                        e.target.style.display = 'none';
+                      }}
+                    />
+                    <IconButton
+                      size="small"
+                      sx={{
+                        position: 'absolute',
+                        top: 8,
+                        right: 8,
+                        bgcolor: 'background.paper',
+                        '&:hover': { bgcolor: 'error.main', color: 'white' },
+                      }}
+                      onClick={handleRemove}
+                      disabled={isSubmitting}
+                    >
+                      <Delete fontSize="small" />
+                    </IconButton>
+                  </Box>
+                ) : (
+                  <Box
+                    sx={{
+                      textAlign: 'center',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 1,
+                      width: '100%',
+                    }}
+                    component="label"
+                  >
+                    <CloudUpload
+                      sx={{
+                        fontSize: { xs: 30, sm: 40 },
+                        color: error ? 'error.main' : 'primary.main',
+                      }}
+                    />
+                    <Typography
+                      variant="body1"
+                      color={error ? 'error.main' : 'text.primary'}
+                      sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+                    >
+                      {title}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                    >
+                      Drag & drop or click to upload
+                    </Typography>
+                    <input
+                      type="file"
+                     accept="image/*"
+              hidden
+              onChange={handleFileUpload}
+              disabled={isSubmitting}
+                    />
+                  </Box>
+                )}
+              </Paper>
+              {error && (
+                <Typography
+                  color="error"
+                  variant="caption"
+                  sx={{ mt: 1, fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                >
+                  {error.message}
+                </Typography>
+              )}
+            </Box>
+          );
+        }}
       />
     </Grid>
   );

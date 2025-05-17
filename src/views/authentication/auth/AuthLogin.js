@@ -144,7 +144,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
             alignItems="center"
             my={2}
           >
-            <FormGroup>
+            {/* <FormGroup>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -165,7 +165,7 @@ const AuthLogin = ({ title, subtitle, subtext }) => {
               }}
             >
               Forgot Password?
-            </Typography>
+            </Typography> */}
           </Stack>
         </Stack>
         <Box>
