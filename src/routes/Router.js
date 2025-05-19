@@ -39,8 +39,32 @@ const ServicesForm = lazy(() => import('../views/services/ServicesForm'));
 const SlidersList = lazy(() => import('../views/sliders/SlidersList'));
 const SlidersForm = lazy(() => import('../views/sliders/SlidersForm'));
 
+const ProjectsList = lazy(() => import('../views/projects/ProjectsList'));
+const ProjectsForm = lazy(() => import('../views/projects/ProjectsForm'));
+
+const ProjectGoalsList = lazy(() => import('../views/projectGoals/ProjectGoalsList'));
+const ProjectGoalsForm = lazy(() => import('../views/projectGoals/ProjectGoalsForm'));
+
+const ProjectSlidersList = lazy(() => import('../views/projectSliders/ProjectSlidersList'));
+const ProjectSlidersForm = lazy(() => import('../views/projectSliders/ProjectSlidersForm'));
+
+const ProjectCategoriesList = lazy(() => import('../views/projectCategories/ProjectCategoriesList'));
+const ProjectCategoriesForm = lazy(() => import('../views/projectCategories/ProjectCategoriesForm'));
+
 const SuccessSnapshotsList = lazy(() => import('../views/successSnapshots/SuccessSnapshotsList'));
 const SuccessSnapshotsForm = lazy(() => import('../views/successSnapshots/SuccessSnapshotsForm'));
+
+const BioList = lazy(() => import('../views/bio/BioList'));
+const BioForm = lazy(() => import('../views/bio/BioForm'));
+
+const CompanyInfoList = lazy(() => import('../views/companyInfo/CompanyInfoList'));
+const CompanyInfoForm = lazy(() => import('../views/companyInfo/CompanyInfoForm'));
+const CompanyLogoForm = lazy(() => import('../views/companyInfo/CompanyLogoForm'));
+const CompanyCoverPhotoForm = lazy(() => import('../views/companyInfo/CompanyCoverPhotoForm'));
+
+const TeamList = lazy(() => import('../views/team/TeamList'));
+const TeamForm = lazy(() => import('../views/team/TeamForm'));
+const TeamImageForm = lazy(() => import('../views/team/TeamImageForm'));
 
 const BasicTable = lazy(() => import('../views/tables/BasicTable'));
 const ExAutoComplete = lazy(() =>
@@ -102,6 +126,30 @@ const Router = [
           { path: '/successSnapshots', element: <SuccessSnapshotsList /> },
           { path: '/successSnapshots/create', element: <SuccessSnapshotsForm /> },
           { path: '/successSnapshots/edit/:id', element: <SuccessSnapshotsForm /> },
+          { path: '/projects', element: <ProjectsList /> },
+          { path: '/projects/create', element: <ProjectsForm /> },
+          { path: '/projects/edit/:id', element: <ProjectsForm /> },
+          { path: '/projectCategories', element: <ProjectCategoriesList /> },
+          { path: '/projectCategories/create', element: <ProjectCategoriesForm /> },
+          { path: '/projectCategories/edit/:id', element: <ProjectCategoriesForm /> },
+          { path: '/projectGoals/:projectId', element: <ProjectGoalsList /> },
+          { path: '/projectGoals/create/:projectId', element: <ProjectGoalsForm /> },
+          { path: '/projectGoals/edit/:id', element: <ProjectGoalsForm /> },
+          { path: '/projectSliders/:projectId', element: <ProjectSlidersList /> },
+          { path: '/projectSliders/create/:projectId', element: <ProjectSlidersForm /> },
+          { path: '/projectSliders/edit/:id', element: <ProjectSlidersForm /> },
+          { path: '/bio', element: <BioList /> },
+          { path: '/bio/create', element: <BioForm /> },
+          { path: '/bio/edit/:id', element: <BioForm /> },
+          { path: '/companyInfo', element: <CompanyInfoList /> },
+          { path: '/companyInfo/create', element: <CompanyInfoForm /> },
+          { path: '/companyInfo/edit/:id', element: <CompanyInfoForm /> },
+          { path: '/companyInfo/:id/logo', element: <CompanyLogoForm /> },
+          { path: '/companyInfo/:id/cover-photo', element: <CompanyCoverPhotoForm /> },
+          { path: '/team', element: <TeamList /> },
+          { path: '/team/create', element: <TeamForm /> },
+          { path: '/team/edit/:id', element: <TeamForm /> },
+          { path: '/team/:id/image', element: <TeamImageForm /> },
           { path: '*', element: <Navigate to="/auth/404" /> },
         ],
       },

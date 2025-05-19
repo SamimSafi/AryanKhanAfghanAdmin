@@ -313,6 +313,288 @@ const SuccessSnapshotsAPI = {
   },
   
 };
+
+// Projects API calls
+const ProjectsAPI = {
+    fetchProjects: async () => {
+    const response = await axiosInstance.get('/projects');
+    return response.data;
+  },
+  createProjects: async (ProjectsData) => {
+   const response = await axiosInstance.post('/projects', ProjectsData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+   updateProjects: async (id, ProjectsData) => {
+    const response = await axiosInstance.put(`/projects/${id}`, ProjectsData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+  deleteProjects: async (ProjectsId) => {
+    const response = await axiosInstance.delete(`/projects/${ProjectsId}`);
+    return response.data;
+  },
+  getProjects: async (ProjectsId) => {
+    const response = await axiosInstance.get(`/projects/${ProjectsId}`);
+    return response.data;
+  },
+   activateProjects: async (id) => {
+    const response = await axiosInstance.post(`/projects/${id}/activate`);
+    return response.data;
+  },
+  deactivateProjects: async (id) => {
+    const response = await axiosInstance.post(`/projects/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
+
+// ProjectCategories API calls
+const ProjectCategoriesAPI = {
+    fetchProjectCategories: async () => {
+    const response = await axiosInstance.get('/project-categories');
+    return response.data;
+  },
+  createProjectCategories: async (ProjectCategoriesData) => {
+    const response = await axiosInstance.post('/project-categories', ProjectCategoriesData);
+    return response.data;
+  },
+   updateProjectCategories: async (id, ProjectCategoriesData) => {
+    const response = await axiosInstance.put(`/project-categories/${id}`, ProjectCategoriesData);
+    return response.data;
+  },
+  deleteProjectCategories: async (ProjectCategoriesId) => {
+    const response = await axiosInstance.delete(`/project-categories/${ProjectCategoriesId}`);
+    return response.data;
+  },
+  getProjectCategories: async (ProjectCategoriesId) => {
+    const response = await axiosInstance.get(`/project-categories/${ProjectCategoriesId}`);
+    return response.data;
+  },
+   activateProjectCategories: async (id) => {
+    const response = await axiosInstance.post(`/project-categories/${id}/activate`);
+    return response.data;
+  },
+  deactivateProjectCategories: async (id) => {
+    const response = await axiosInstance.post(`/project-categories/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
+
+const ProjectGoalsAPI = {
+    fetchProjectGoals: async (projectId) => {
+    const response = await axiosInstance.get(`/project-goals/project/${projectId}`,{isActive:true,projectId:projectId});
+    return response.data;
+  },
+  createProjectGoals: async (ProjectGoalsData) => {
+   const response = await axiosInstance.post('/project-goals', ProjectGoalsData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+   updateProjectGoals: async (id, ProjectGoalsData) => {
+    const response = await axiosInstance.put(`/project-goals/${id}`, ProjectGoalsData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+  deleteProjectGoals: async (ProjectGoalsId) => {
+    const response = await axiosInstance.delete(`/project-goals/${ProjectGoalsId}`);
+    return response.data;
+  },
+  getProjectGoals: async (ProjectGoalsId) => {
+    const response = await axiosInstance.get(`/project-goals/${ProjectGoalsId}`);
+    return response.data;
+  },
+   activateProjectGoals: async (id) => {
+    const response = await axiosInstance.post(`/project-goals/${id}/activate`);
+    return response.data;
+  },
+  deactivateProjectGoals: async (id) => {
+    const response = await axiosInstance.post(`/project-goals/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
+
+const ProjectSlidersAPI = {
+    fetchProjectSliders: async (projectId) => {
+    const response = await axiosInstance.get(`/project-sliders/project/${projectId}`);
+    return response.data;
+  },
+  createProjectSliders: async (ProjectSlidersData) => {
+   const response = await axiosInstance.post('/project-sliders', ProjectSlidersData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+   updateProjectSliders: async (id, ProjectSlidersData) => {
+    const response = await axiosInstance.put(`/project-sliders/${id}`, ProjectSlidersData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+  deleteProjectSliders: async (ProjectSlidersId) => {
+    const response = await axiosInstance.delete(`/project-sliders/${ProjectSlidersId}`);
+    return response.data;
+  },
+  getProjectSliders: async (ProjectSlidersId) => {
+    const response = await axiosInstance.get(`/project-sliders/${ProjectSlidersId}`);
+    return response.data;
+  },
+   activateProjectSliders: async (id) => {
+    const response = await axiosInstance.post(`/project-sliders/${id}/activate`);
+    return response.data;
+  },
+  deactivateProjectSliders: async (id) => {
+    const response = await axiosInstance.post(`/project-sliders/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
+
+// CompanyInfo API calls
+const CompanyInfoAPI = {
+  fetchCompanyInfo: async () => {
+    const response = await axiosInstance.get('/company-info');
+    return response.data;
+  },
+  createCompanyInfo: async (CompanyInfoData) => {
+    const response = await axiosInstance.post('/company-info', CompanyInfoData);
+    return response.data;
+  },
+  updateCompanyInfo: async (id, CompanyInfoData) => {
+    const response = await axiosInstance.put(`/company-info/${id}`, CompanyInfoData);
+    return response.data;
+  },
+  deleteCompanyInfo: async (CompanyInfoId) => {
+    const response = await axiosInstance.delete(`/company-info/${CompanyInfoId}`);
+    return response.data;
+  },
+  getCompanyInfo: async (CompanyInfoId) => {
+    const response = await axiosInstance.get(`/company-info/${CompanyInfoId}`);
+    return response.data;
+  },
+  activateCompanyInfo: async (id) => {
+    const response = await axiosInstance.post(`/company-info/${id}/activate`);
+    return response.data;
+  },
+  deactivateCompanyInfo: async (id) => {
+    const response = await axiosInstance.post(`/company-info/${id}/deactivate`);
+    return response.data;
+  },
+  updateCompanyLogo: async (id, logoFile) => {
+    const formData = new FormData();
+    formData.append('logo', logoFile);
+    const response = await axiosInstance.put(`/company-info/${id}/logo`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+  updateCompanyCoverPhoto: async (id, coverPhotoFile) => {
+    const formData = new FormData();
+    formData.append('cover', coverPhotoFile);
+    const response = await axiosInstance.put(`/company-info/${id}/cover-photo`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+};
+
+// Bio API calls
+const BioAPI = {
+    fetchBio: async () => {
+    const response = await axiosInstance.get('/bio');
+    return response.data;
+  },
+  createBio: async (BioData) => {
+    const response = await axiosInstance.post('/bio', BioData);
+    return response.data;
+  },
+   updateBio: async (id, BioData) => {
+    const response = await axiosInstance.put(`/bio/${id}`, BioData);
+    return response.data;
+  },
+  deleteBio: async (BioId) => {
+    const response = await axiosInstance.delete(`/bio/${BioId}`);
+    return response.data;
+  },
+  getBio: async (BioId) => {
+    const response = await axiosInstance.get(`/bio/${BioId}`);
+    return response.data;
+  },
+   activateBio: async (id) => {
+    const response = await axiosInstance.post(`/bio/${id}/activate`);
+    return response.data;
+  },
+  deactivateBio: async (id) => {
+    const response = await axiosInstance.post(`/bio/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
+
+
+// Team API calls
+const TeamAPI = {
+  fetchTeam: async () => {
+    const response = await axiosInstance.get('/team');
+    return response.data;
+  },
+  createTeam: async (TeamData) => {
+    const response = await axiosInstance.post('/team', TeamData);
+    return response.data;
+  },
+  updateTeam: async (id, TeamData) => {
+    const response = await axiosInstance.put(`/team/${id}`, TeamData);
+    return response.data;
+  },
+  deleteTeam: async (TeamId) => {
+    const response = await axiosInstance.delete(`/team/${TeamId}`);
+    return response.data;
+  },
+  getTeam: async (TeamId) => {
+    const response = await axiosInstance.get(`/team/${TeamId}`);
+    return response.data;
+  },
+  activateTeam: async (id) => {
+    const response = await axiosInstance.post(`/team/${id}/activate`);
+    return response.data;
+  },
+  deactivateTeam: async (id) => {
+    const response = await axiosInstance.post(`/team/${id}/deactivate`);
+    return response.data;
+  },
+  updateTeamImage: async (id, logoFile) => {
+    const formData = new FormData();
+    formData.append('image', logoFile);
+    const response = await axiosInstance.put(`/team/${id}/image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+};
 // Centralized agent exporting all resource APIs
 const agent = {
   Auth:AuthAPI,
@@ -326,6 +608,13 @@ const agent = {
   Services: ServicesAPI,
   Sliders: SlidersAPI,
   SuccessSnapshots: SuccessSnapshotsAPI,
+  Projects: ProjectsAPI,
+  ProjectCategories: ProjectCategoriesAPI,
+ ProjectGoals: ProjectGoalsAPI,
+ ProjectSliders: ProjectSlidersAPI,
+ Bio: BioAPI,
+ CompanyInfo: CompanyInfoAPI,
+ Team: TeamAPI,
 };
 
 export default agent;

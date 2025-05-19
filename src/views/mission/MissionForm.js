@@ -94,7 +94,7 @@ const MissionForm = () => {
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3}>
-            <Grid container spacing={3}>
+            <Grid container lg={12} md={12}  sm={12} spacing={3}>
               <Grid item xs={6}>
                 <TextField
                   label="Title (English)"
@@ -126,7 +126,7 @@ const MissionForm = () => {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               
             <Grid container spacing={3}>
               <Grid item xs={6}>

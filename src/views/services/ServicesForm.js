@@ -139,7 +139,7 @@ const ServicesForm = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3}>
             {/* Title Fields */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={4}>
                 <TextField
                   label="Title (English)"
@@ -173,7 +173,7 @@ const ServicesForm = () => {
             </Grid>
 
             {/* Summary Fields */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={4}>
                 <TextField
                   label="Summary (English)"
@@ -213,7 +213,7 @@ const ServicesForm = () => {
             </Grid>
 
             {/* Detailed Description Fields */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={4}>
                 <TextField
                   label="Detailed Description (English)"
@@ -253,7 +253,7 @@ const ServicesForm = () => {
             </Grid>
 
             {/* Additional Fields */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={6}>
                 <TextField
                   label="Number of Satisfied Clients"
@@ -277,7 +277,7 @@ const ServicesForm = () => {
             </Grid>
 
             {/* File Uploads */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={4}>
                 <FileUpload
                   control={control}

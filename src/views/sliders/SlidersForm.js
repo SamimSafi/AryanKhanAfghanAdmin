@@ -131,7 +131,7 @@ const [slidersData, setSlidersData] = useState(null);
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3}>
             {/* Title Fields */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={4}>
                 <TextField
                   label="Title (English)"
@@ -165,7 +165,7 @@ const [slidersData, setSlidersData] = useState(null);
             </Grid>
 
             {/* Subtitle Fields */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={4}>
                 <TextField
                   label="Subtitle (English)"
@@ -199,7 +199,7 @@ const [slidersData, setSlidersData] = useState(null);
             </Grid>
 
             {/* Description Fields */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={6}>
                 <TextField
                   label="Description (English)"
@@ -226,7 +226,7 @@ const [slidersData, setSlidersData] = useState(null);
               </Grid>
             </Grid>
 
-              <Grid item xs={6}>
+              <Grid item lg={12} md={12}  sm={12} xs={6}>
                 <TextField
                   label="Description (Dari)"
                   {...register('description_dari', { required: 'Description (Dari) is required' })}
@@ -239,7 +239,7 @@ const [slidersData, setSlidersData] = useState(null);
                 />
               </Grid>
 
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={6}>
                 <TextField
                   label="Samll subtitle (English)"

@@ -122,7 +122,7 @@ const [leadershipData, setLeadershipData] = useState(null);
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3}>
             {/* Full Name Fields */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={4}>
                 <TextField
                   label="Full Name (English)"
@@ -156,7 +156,7 @@ const [leadershipData, setLeadershipData] = useState(null);
             </Grid>
 
             {/* Job Fields */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={4}>
                 <TextField
                   label="Job (English)"
@@ -190,7 +190,7 @@ const [leadershipData, setLeadershipData] = useState(null);
             </Grid>
 
             {/* Description Fields */}
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={6}>
                 <TextField
                   label="Description (English)"
@@ -216,7 +216,7 @@ const [leadershipData, setLeadershipData] = useState(null);
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={6}>
                 <TextField
                   label="Description (Dari)"
@@ -260,9 +260,6 @@ const [leadershipData, setLeadershipData] = useState(null);
                                existingImage={isEdit ? leadershipData?.logoPath : null} // Pass existing icon path
                             />
             </Grid>
-
-             {/* File Upload and IsActive */}
-                    
 
             {/* Form Actions */}
             <Box sx={{ display: 'flex', gap: 2, pt: 2 }}>

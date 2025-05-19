@@ -195,7 +195,7 @@ const SidebarItems = () => {
         }}
       >
         {renderMenuItems(Menuitems, pathDirect, theme)}
-        <ThemeToggle />
+        
       </MUI_Sidebar>
     </Box>
   );

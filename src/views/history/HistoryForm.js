@@ -97,7 +97,7 @@ const HistoryForm = () => {
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3}>
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={6}>
                 <TextField
                   label="Title (English)"
@@ -119,7 +119,7 @@ const HistoryForm = () => {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={6}>
                 <TextField
                   label="Title (Dari)"
@@ -141,7 +141,7 @@ const HistoryForm = () => {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={6}>
                 <TextField
                   label="Subtitle (Pashto)"
@@ -163,7 +163,7 @@ const HistoryForm = () => {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={6}>
                 <TextField
                   label="Description (English)"
@@ -189,7 +189,7 @@ const HistoryForm = () => {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2}>
+            <Grid container lg={12} md={12}  sm={12} spacing={2}>
               <Grid item xs={6}>
                 <TextField
                   label="Description (Dari)"

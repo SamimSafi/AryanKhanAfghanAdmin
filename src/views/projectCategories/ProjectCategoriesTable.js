@@ -12,10 +12,9 @@ import {
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import ImageDisplay from '../../components/ImageDisplay';
 
-const PartnershipTable = ({
-  Partnership,
+const ProjectCategoriesTable = ({
+  ProjectCategories,
   sortOrder,
   handleSort,
   handleDelete,
@@ -33,36 +32,38 @@ const PartnershipTable = ({
                 direction={sortOrder}
                 onClick={handleSort}
               >
-                link 
+                name
               </TableSortLabel>
             </TableCell>
-            <TableCell>Logo</TableCell>
+            <TableCell>name Pashto</TableCell>
+            <TableCell>name Dari</TableCell>
+            <TableCell>Description</TableCell>
+            <TableCell>Description Pashto</TableCell>
+            <TableCell>Description Dari</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {Partnership.map((Partnership) => (
+          {ProjectCategories.map((ProjectCategories) => (
             <TableRow
-              key={Partnership.id}
-              selected={selected.includes(Partnership.id)}
+              key={ProjectCategories.id}
+              selected={selected.includes(ProjectCategories.id)}
             >
-              <TableCell>{Partnership.link}</TableCell>
-              <TableCell> 
-                     <ImageDisplay
-                              path={Partnership.logoPath}
-                              alt={"Partnership logo"}
-                              fallbackText="No Image"
-                            />
-                    </TableCell>
+              <TableCell>{ProjectCategories.name}</TableCell>
+              <TableCell>{ProjectCategories.name_pashto}</TableCell>
+              <TableCell>{ProjectCategories.name_dari}</TableCell>
+              <TableCell>{ProjectCategories.description}</TableCell>
+              <TableCell>{ProjectCategories.description_pashto}</TableCell>
+              <TableCell>{ProjectCategories.description_dari}</TableCell>
               <TableCell>
                 <IconButton
-                  onClick={() => navigate(`/partnership/edit/${Partnership.id}`)}
+                  onClick={() => navigate(`/projectCategories/edit/${ProjectCategories.id}`)}
                   color="primary"
                 >
                   <Edit />
                 </IconButton>
                 <IconButton
-                  onClick={() => handleDelete(Partnership.id)}
+                  onClick={() => handleDelete(ProjectCategories.id)}
                   color="error"
                 >
                   <Delete />
@@ -76,4 +77,4 @@ const PartnershipTable = ({
   );
 };
 
-export default PartnershipTable;
+export default ProjectCategoriesTable;

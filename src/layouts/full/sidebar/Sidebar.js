@@ -1,70 +1,67 @@
-import { useMediaQuery, Box, Drawer } from '@mui/material';
+import { useMediaQuery, Box, Drawer, IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import SidebarItems from './SidebarItems';
 import Scrollbar from '../../../components/custom-scroll/Scrollbar';
-import Upgrade from './Upgrade';
 
 const Sidebar = (props) => {
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg')); // Line 7: Requires valid theme
+  const { isSidebarOpen, isMobileSidebarOpen, onSidebarClose, onSidebarToggle } = props;
+  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   const sidebarWidth = '270px';
 
-  if (lgUp) {
-    return (
-      <Box
-        sx={{
-          width: sidebarWidth,
-          flexShrink: 0,
-        }}
-      >
-        {/* ------------------------------------------- */}
-        {/* Sidebar for desktop */}
-        {/* ------------------------------------------- */}
+  // Debugging logs
+  console.log('Sidebar Props:', { isSidebarOpen, isMobileSidebarOpen, lgUp });
+  console.log('onSidebarToggle exists:', !!onSidebarToggle);
+
+  return (
+    <>
+      {lgUp ? (
+        <Box
+          sx={{
+            width: sidebarWidth,
+            flexShrink: 0,
+          }}
+        >
+          {/* Sidebar for desktop */}
+          <Drawer
+            anchor="left"
+            open={isSidebarOpen}
+            variant="permanent"
+            PaperProps={{
+              sx: {
+                width: sidebarWidth,
+                boxSizing: 'border-box',
+                top: '128px',
+              },
+            }}
+          >
+            <Scrollbar sx={{ height: 'calc(100% - 83px)' }}>
+              <Box>
+                <SidebarItems />
+              </Box>
+            </Scrollbar>
+          </Drawer>
+        </Box>
+      ) : (
         <Drawer
           anchor="left"
-          open={props.isSidebarOpen}
-          variant="permanent"
+          open={isMobileSidebarOpen}
+          onClose={() => {
+            console.log('Drawer closing, calling onSidebarClose');
+            if (onSidebarClose) onSidebarClose();
+          }}
+          variant="temporary"
           PaperProps={{
             sx: {
-              width: sidebarWidth,
-              boxSizing: 'border-box',
-              top: '64px',
+              boxShadow: (theme) => theme.shadows[8],
             },
           }}
         >
-          {/* ------------------------------------------- */}
-          {/* Sidebar Box */}
-          {/* ------------------------------------------- */}
           <Scrollbar sx={{ height: 'calc(100% - 73px)' }}>
-            <Box>
-              {/* ------------------------------------------- */}
-              {/* Sidebar Items */}
-              {/* ------------------------------------------- */}
-              <SidebarItems />
-            </Box>
+            <SidebarItems />
           </Scrollbar>
         </Drawer>
-      </Box>
-    );
-  }
-  return (
-    <Drawer
-      anchor="left"
-      open={props.isMobileSidebarOpen}
-      onClose={props.onSidebarClose}
-      variant="temporary"
-      PaperProps={{
-        sx: {
-          boxShadow: (theme) => theme.shadows[8],
-        },
-      }}
-    >
-      <Scrollbar sx={{ height: 'calc(100% - 73px)' }}>
-        {/* ------------------------------------------- */}
-        {/* Sidebar For Mobile */}
-        {/* ------------------------------------------- */}
-        <SidebarItems />
-        <Upgrade />
-      </Scrollbar>
-    </Drawer>
+      )}
+    </>
   );
 };
 

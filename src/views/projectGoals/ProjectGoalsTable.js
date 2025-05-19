@@ -12,18 +12,18 @@ import {
 } from '@mui/material';
 import { Cancel, CheckCircle, Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import useLeadershipStore from '../../context/leadershipStore';
+import useProjectGoalsStore from '../../context/projectGoalsStore';
 import ImageDisplay from '../../components/ImageDisplay';
 
-const LeadershipFormTable = ({
-  Leadership,
+const ProjectGoalsFormTable = ({
+  ProjectGoals,
   sortOrder,
   handleSort,
   handleDelete,
   selected,
 }) => {
   const navigate = useNavigate();
- const { activateLeadership, deactivateLeadership } = useLeadershipStore();
+ const { activateProjectGoals, deactivateProjectGoals } = useProjectGoalsStore();
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -35,46 +35,40 @@ const LeadershipFormTable = ({
                 direction={sortOrder}
                 onClick={handleSort}
               >
-                Full Name 
+                Title 
               </TableSortLabel>
             </TableCell>
-            <TableCell>Full Name Pashto </TableCell>
-            <TableCell>Full Name Dari</TableCell>
-            <TableCell>job</TableCell>
-            <TableCell>job Pashto</TableCell>
-            <TableCell>job Dari</TableCell>
-            <TableCell>Description</TableCell>
-            <TableCell>Description Pashto</TableCell>
-            <TableCell>Description Dari</TableCell>
+            <TableCell>Title Pashto </TableCell>
+            <TableCell>Title Dari</TableCell>
+            <TableCell>brief Summary</TableCell>
+            <TableCell>brief Summary Pashto</TableCell>
+            <TableCell>brief Summary Dari</TableCell>
             <TableCell>Image</TableCell>
             <TableCell>Is Active</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {Leadership.map((Leadership) => (
+          {ProjectGoals.map((ProjectGoals) => (
             <TableRow
-              key={Leadership.id}
-              selected={selected.includes(Leadership.id)}
+              key={ProjectGoals.id}
+              selected={selected.includes(ProjectGoals.id)}
             >
-              <TableCell>{Leadership.fullName}</TableCell>
-              <TableCell>{Leadership.fullName_pashto}</TableCell>
-              <TableCell>{Leadership.fullName_dari}</TableCell>
-              <TableCell>{Leadership.job}</TableCell>
-              <TableCell>{Leadership.job_pashto}</TableCell>
-              <TableCell>{Leadership.job_dari}</TableCell>
-              <TableCell>{Leadership.description}</TableCell>
-              <TableCell>{Leadership.description_pashto}</TableCell>
-              <TableCell>{Leadership.description_dari}</TableCell>
+              <TableCell>{ProjectGoals.title}</TableCell>
+              <TableCell>{ProjectGoals.title_pashto}</TableCell>
+              <TableCell>{ProjectGoals.title_dari}</TableCell>
+              <TableCell>{ProjectGoals.briefSummary}</TableCell>
+              <TableCell>{ProjectGoals.briefSummary_pashto}</TableCell>
+              <TableCell>{ProjectGoals.briefSummary_dari}</TableCell>
               <TableCell> 
-                       <ImageDisplay
-                              path={Leadership.photoPath}
-                              alt={Leadership.fullName}
+                    <ImageDisplay
+                              path={ProjectGoals.image}
+                              alt={ProjectGoals.title}
                               fallbackText="No Image"
                             />
                     </TableCell>
               <TableCell>
-                        {Leadership.isActive ? (
+                        {ProjectGoals.isActive ? (
                           <span style={{ backgroundColor: 'green', color: 'white', padding: '4px 8px', borderRadius: '4px' }}>
                             Active
                           </span>
@@ -86,28 +80,28 @@ const LeadershipFormTable = ({
               </TableCell>
               <TableCell>
                 <IconButton
-                  onClick={() => navigate(`/leadership/edit/${Leadership.id}`)}
+                  onClick={() => navigate(`/projectGoals/edit/${ProjectGoals.id}`)}
                   color="primary"
                 >
                   <Edit />
                 </IconButton>
                 <IconButton
-                  onClick={() => handleDelete(Leadership.id)}
+                  onClick={() => handleDelete(ProjectGoals.id)}
                   color="error"
                 >
                   <Delete />
                 </IconButton>
 
-                 {Leadership.isActive ? (
+                 {ProjectGoals.isActive ? (
               <IconButton
-                onClick={() => deactivateLeadership(Leadership.id)}
+                onClick={() => deactivateProjectGoals(ProjectGoals.id)}
                 color="warning"
               >
                 <Cancel />
               </IconButton>
             ) : (
               <IconButton
-                onClick={() => activateLeadership(Leadership.id)}
+                onClick={() => activateProjectGoals(ProjectGoals.id)}
                 color="success"
               >
                 <CheckCircle />
@@ -122,4 +116,4 @@ const LeadershipFormTable = ({
   );
 };
 
-export default LeadershipFormTable;
+export default ProjectGoalsFormTable;

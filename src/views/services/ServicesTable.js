@@ -74,19 +74,19 @@ const ServicesFormTable = ({
               <TableCell>{Services.successWork}</TableCell>
               <TableCell> <ImageDisplay
                               path={Services.icon}
-                              alt={"icon"}
+                              alt={Services.title}
                               fallbackText="No image"
                             />
                     </TableCell>
               <TableCell> <ImageDisplay
                               path={Services.image1}
-                              alt={"image1"}
+                              alt={Services.title}
                               fallbackText="No image"
                             />
                     </TableCell>
               <TableCell> <ImageDisplay
                               path={Services.image2}
-                              alt={"image 2"}
+                              alt={Services.title}
                               fallbackText="No image"
                             />
                     </TableCell>

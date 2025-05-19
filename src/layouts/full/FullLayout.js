@@ -26,8 +26,21 @@ const PageWrapper = styled('div')(() => ({
 
 const FullLayout = () => {
 
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+
+  const handleSidebarToggle = () => {
+    console.log('Toggling mobile sidebar, current state:', isMobileSidebarOpen);
+    setMobileSidebarOpen((prev) => !prev);
+  };
+
+  const handleSidebarClose = () => {
+    console.log('Closing mobile sidebar');
+    setMobileSidebarOpen(false);
+  };
+
+  // Log state changes
+  console.log('AppLayout State:', { isSidebarOpen, isMobileSidebarOpen });
   // const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"));
 
   return (
@@ -35,17 +48,21 @@ const FullLayout = () => {
       {/* ------------------------------------------- */}
       {/* Topbar */}
       {/* ------------------------------------------- */}
-      <Topbar/>
+      <Topbar onSidebarToggle={handleSidebarToggle} />
     <MainWrapper
       className='mainwrapper'
-    >
+      >
 
       {/* ------------------------------------------- */}
       {/* Sidebar */}
       {/* ------------------------------------------- */}
-      <Sidebar isSidebarOpen={isSidebarOpen}
+  <Sidebar
+        isSidebarOpen={isSidebarOpen}
         isMobileSidebarOpen={isMobileSidebarOpen}
-        onSidebarClose={() => setMobileSidebarOpen(false)} />
+        onSidebarClose={handleSidebarClose}
+        onSidebarToggle={handleSidebarToggle}
+      />
+
 
 
       {/* ------------------------------------------- */}

@@ -2,10 +2,8 @@
 import { uniqueId } from 'lodash';
 
 import {
-  IconCopy, IconLayoutDashboard, IconTypography,
-  IconUserCircle,
-  IconLock, IconAlignBoxLeftBottom, IconCheckbox, IconRadar, IconSlideshow, IconCaretUpDown, IconTable, IconForms,
-  IconLogin,
+  IconLayoutDashboard, IconTypography,
+ IconAlignBoxLeftBottom, IconCheckbox, IconRadar, IconSlideshow, IconCaretUpDown, IconTable, IconForms,
   IconAperture
 } from '@tabler/icons-react';
 
@@ -78,6 +76,36 @@ const Menuitems = [
     href: '/successSnapshots',
   },
   {
+    id: uniqueId(),
+    title: 'Projects',
+    icon: IconAperture,
+    href: '/projects',
+  },
+  {
+    id: uniqueId(),
+    title: 'Project Categories',
+    icon: IconAperture,
+    href: '/projectCategories',
+  },
+  {
+    id: uniqueId(),
+    title: 'Bio',
+    icon: IconAperture,
+    href: '/bio',
+  },
+  {
+    id: uniqueId(),
+    title: 'Company Info',
+    icon: IconAperture,
+    href: '/companyInfo',
+  },
+  {
+    id: uniqueId(),
+    title: 'Team',
+    icon: IconAperture,
+    href: '/team',
+  },
+  {
     navlabel: true,
     subheader: 'Utilities',
   },
@@ -129,49 +157,6 @@ const Menuitems = [
     icon: IconForms,
     href: '/form-layouts',
   },
-  {
-    id: uniqueId(),
-    title: 'Sample Page',
-    icon: IconAperture,
-    href: '/sample-page',
-  },
-  {
-    id: uniqueId(),
-    title: 'Typography',
-    icon: IconTypography,
-    href: '/ui/typography',
-  },
-  {
-    id: uniqueId(),
-    title: 'Shadow',
-    icon: IconCopy,
-    href: '/ui/shadow',
-  },
-
-  {
-    navlabel: true,
-    subheader: 'Auth',
-  },
-  {
-    id: uniqueId(),
-    title: 'Login',
-    icon: IconLogin,
-    href: '/auth/login',
-  },
-  {
-    id: uniqueId(),
-    title: 'Register',
-    icon: IconUserCircle,
-    href: '/auth/register',
-  },
-  {
-    id: uniqueId(),
-    title: 'Auth Pages',
-    icon: IconLock,
-    href: '/auth/login',
-    chip: 'Pro',
-  },
-
 ];
 
 export default Menuitems;

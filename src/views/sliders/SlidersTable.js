@@ -9,12 +9,11 @@ import {
   IconButton,
   Paper,
   TableSortLabel,
-  Typography,
 } from '@mui/material';
 import { Cancel, CheckCircle, Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import useSlidersStore from '../../context/slidersStore';
-import { baseURL } from '../../api/baseURL';
+import ImageDisplay from '../../components/ImageDisplay';
 
 const SlidersFormTable = ({
   Sliders,
@@ -73,24 +72,12 @@ const SlidersFormTable = ({
               <TableCell>{Sliders.smallSubTitle}</TableCell>
               <TableCell>{Sliders.smallSubTitle_pashto}</TableCell>
               <TableCell>{Sliders.smallSubTitle_dari}</TableCell>
-              <TableCell> {Sliders.photoPath ? (
-                      <img
-                        src={baseURL+`${Sliders.photoPath.replace(/\\/g, '/')}`}
-                        alt={Sliders.fullName}
-                        style={{
-                          maxWidth: '50px',
-                          maxHeight: '50px',
-                          objectFit: 'cover',
-                          borderRadius: '4px',
-                        }}
-                        onError={(e) => {
-                          console.error('Image load error:', Sliders.photoPath);
-                          e.target.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <Typography variant="caption">No image</Typography>
-                    )}
+              <TableCell> 
+                     <ImageDisplay
+                                              path={Sliders.photoPath}
+                                              alt={Sliders.title}
+                                              fallbackText="No Image"
+                                             />
                     </TableCell>
               <TableCell>
                         {Sliders.isActive ? (

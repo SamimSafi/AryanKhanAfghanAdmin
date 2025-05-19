@@ -1,45 +1,24 @@
-import React, { useState } from 'react';
-import { Box, AppBar, Toolbar, styled, Stack, Button, IconButton, Badge, Menu, MenuItem } from '@mui/material';
-import adminmartLogo from '../../../assets/images/logos/logo-adminmart.svg';
-import { IconLifebuoy, IconGift, IconBriefcase, IconBellRinging } from '@tabler/icons-react';
-import { Typography} from '@mui/material';
-import { Link } from 'react-router';
-import LivePreviewDropdown from './LivePreviewDropdown';
-import BuyNowDropdown from './BuyNowDropdown';
+import { Box, AppBar, Toolbar, styled, Stack, IconButton } from '@mui/material';
 import Profile from './Profile';
 import { Logo } from 'react-mui-sidebar';
 import { NavLink } from 'react-router';
-import logoicn from "../../../assets/images/logos/dark1-logo.svg";
+import logoicn from '../../../assets/images/logos/logo-adminmart.svg';
+import ThemeToggle from '../../../components/ThemeToggle';
+import MenuIcon from '@mui/icons-material/Menu';
 
-const Topbar = (props) => {
-
-    const [anchorEl, setAnchorEl] = useState(null);
-  
-    const [menuPosition, setMenuPosition] = useState(null);
-  
-    const handleClick = (event) => {
-      const rect = event.currentTarget.getBoundingClientRect(); // Get exact position
-      setMenuPosition({
-        top: rect.bottom + window.scrollY, // Position menu below the icon
-        left: rect.left + window.scrollX,  // Align with icon
-      });
-      setAnchorEl(event.currentTarget);
-    };
-  
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
+const Topbar = ({ onSidebarToggle }) => {
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     boxShadow: 'none',
-    background: theme.palette.grey[600],
-    zIndex:"50",
+    background: theme.palette.primary[200],
+    zIndex: 1000,
     justifyContent: 'center',
     backdropFilter: 'blur(4px)',
     [theme.breakpoints.up('lg')]: {
-      minHeight: '61px',
+      minHeight: '60px',
     },
+    height: '120px',
   }));
+
   const ToolbarStyled = styled(Toolbar)(({ theme }) => ({
     width: '100%',
     color: theme.palette.text.secondary,
@@ -47,67 +26,66 @@ const Topbar = (props) => {
 
   return (
     <AppBarStyled position="sticky" color="default">
-      <ToolbarStyled sx={{flexWrap:"wrap"}} >
-              <Stack
-                  spacing={{ xs: 1, sm: 8 }}
-                  direction="row"
-                  useFlexGap
-                  sx={{ flexWrap: 'wrap', justifyContent:{xs:"center", lg:"between"}, paddingY:{xs:"8px" , lg:"0px"} , width:{xs:"100%" , lg:"auto"} }}
-              >
-                 <Box sx={{ margin: "0 -24px" }}>
-                   <Logo img={logoicn} component={NavLink} to="/" >Flexy</Logo>
-                 </Box>
-               <Stack spacing={1} direction="row" sx={{flexWrap:'wrap' , display : {xs:"none",lg:"flex"} }} >
-                   <Box>
-          <IconButton
-            aria-label="show 4 new mails"
-            color="inherit"
-            aria-controls="notification-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            <Badge variant="dot" color="primary">
-              <IconBellRinging size="21" stroke="1.5" />
-            </Badge>
-          </IconButton>
+      <ToolbarStyled sx={{ flexWrap: 'wrap' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+            py: { xs: '8px', lg: '0px' },
+          }}
+        >
+          {/* Left: Profile (mobile), Logo and ThemeToggle (desktop) */}
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {/* Profile for Mobile */}
+            <Box sx={{ display: { xs: 'block', lg: 'none' } }}>
+              <Profile />
+            </Box>
+            {/* Logo for Desktop and Mobile */}
+            <Box
+              sx={{
+                position: { xs: 'absolute', lg: 'static' },
+                left: { xs: '50%', lg: 'auto' },
+                transform: { xs: 'translateX(-50%)', lg: 'none' },
+              }}
+            >
+              <Logo img={logoicn} component={NavLink} to="/" />
+            </Box>
+            {/* ThemeToggle for Desktop */}
+            <Stack
+              spacing={1}
+              direction="row"
+              sx={{
+                display: { xs: 'none', lg: 'flex' },
+                alignItems: 'center',
+                ml: 2, // Space between Logo and ThemeToggle
+              }}
+            >
+              <ThemeToggle />
+            </Stack>
+          </Box>
 
-          <Menu
-            id="notification-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-            anchorReference="anchorPosition" // Use custom positioning
-            anchorPosition={menuPosition ? { top: menuPosition.top, left: menuPosition.left } : undefined}
-            PaperProps={{
-              sx: {
-                mt: 1, // Ensures the menu appears slightly below the bell icon
-                boxShadow: 9, // Optional: Improves visibility with a shadow
-                minWidth: '200px', // Adjust width to ensure proper alignment
-              },
-            }}
-          >
-            <MenuItem onClick={handleClose}>
-              <Typography variant="body1">Item 1</Typography>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <Typography variant="body1">Item 2</Typography>
-            </MenuItem>
-          </Menu>
-
+          {/* Right: Menu Icon (mobile), Profile (desktop) */}
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {/* Menu Icon for Mobile */}
+            <IconButton
+              color="inherit"
+              aria-label="open sidebar"
+              onClick={onSidebarToggle}
+              sx={{ display: { xs: 'block', lg: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            {/* Profile for Desktop */}
+            <Box sx={{ display: { xs: 'none', lg: 'block' } }}>
+              <Profile />
+            </Box>
+          </Box>
         </Box>
-               </Stack>
-                
-              </Stack>
-        <Box flexGrow={1} />
-        <Stack spacing={1} direction="row" alignItems="center" sx={{ flexWrap: 'wrap', justifyContent:"center" , gap:{xs:"10px" , lg:"0px"} , padding:{xs:"0px 0px 10px 0px" , lg:"0px 0px"} }}>
-        <Stack spacing={1} direction="row" alignItems="center">
-          <Profile />
-        </Stack>
-        </Stack>
       </ToolbarStyled>
     </AppBarStyled>
   );
 };
-
 
 export default Topbar;
