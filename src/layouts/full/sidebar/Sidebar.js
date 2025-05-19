@@ -1,5 +1,4 @@
-import { useMediaQuery, Box, Drawer, IconButton } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { useMediaQuery, Box, Drawer } from '@mui/material';
 import SidebarItems from './SidebarItems';
 import Scrollbar from '../../../components/custom-scroll/Scrollbar';
 
@@ -15,12 +14,7 @@ const Sidebar = (props) => {
   return (
     <>
       {lgUp ? (
-        <Box
-          sx={{
-            width: sidebarWidth,
-            flexShrink: 0,
-          }}
-        >
+        <Box sx={{ width: sidebarWidth, flexShrink: 0 }}>
           {/* Sidebar for desktop */}
           <Drawer
             anchor="left"
@@ -35,7 +29,7 @@ const Sidebar = (props) => {
             }}
           >
             <Scrollbar sx={{ height: 'calc(100% - 83px)' }}>
-              <Box>
+              <Box sx={{ paddingBottom: '60px' }}> {/* Add bottom padding */}
                 <SidebarItems />
               </Box>
             </Scrollbar>
@@ -46,18 +40,21 @@ const Sidebar = (props) => {
           anchor="left"
           open={isMobileSidebarOpen}
           onClose={() => {
-            console.log('Drawer closing, calling onSidebarClose');
+            console.log('Closing mobile sidebar');
             if (onSidebarClose) onSidebarClose();
           }}
           variant="temporary"
           PaperProps={{
             sx: {
+              width: sidebarWidth,
               boxShadow: (theme) => theme.shadows[8],
             },
           }}
         >
           <Scrollbar sx={{ height: 'calc(100% - 73px)' }}>
-            <SidebarItems />
+            <Box sx={{ paddingBottom: '60px' }}> {/* Add bottom padding */}
+              <SidebarItems />
+            </Box>
           </Scrollbar>
         </Drawer>
       )}
