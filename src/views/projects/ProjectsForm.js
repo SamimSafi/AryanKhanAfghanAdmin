@@ -13,15 +13,18 @@ import {
   Button,
   FormControlLabel,
   Switch,
+  MenuItem,
 } from '@mui/material';
 import useProjectsStore from '../../context/projectsStore';
 import FileUpload from '../../components/FileUpload';
 import { urlToFileObject } from '../../utils/fileUtils';
+import useProjectCategoriesStore from '../../context/projectCategoriesStore';
 
 const ProjectsForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { createProjects, updateProjects, getProjects } = useProjectsStore();
+  const { ProjectCategories, loading, fetchProjectCategories } = useProjectCategoriesStore();
   const isEdit = !!id;
 const [projectsData, setProjectsData] = useState(null);
   const {
@@ -51,9 +54,14 @@ const [projectsData, setProjectsData] = useState(null);
       starReceived: '',
       happyCustomers: '',
       isActive: true,
+      categoryId : '',
       imagefile: null, // Stores File object
     },
   });
+
+    useEffect(() => {
+    fetchProjectCategories();
+  }, [fetchProjectCategories]);
 
   // Fetch projects data for editing
   useEffect(() => {
@@ -82,6 +90,7 @@ const [projectsData, setProjectsData] = useState(null);
             setValue('starReceived', projects.starReceived || '');
             setValue('happyCustomers', projects.happyCustomers || '');
             setValue('isActive', !!projects.isActive); // Ensure boolean
+            setValue('categoryId ', projects.categoryId ); 
              const logoFile = await urlToFileObject(projects.image, 'logo');
                     setValue('imagefile', logoFile); // Set single file object
             // Note: 'file' is not pre-populated; user must re-upload
@@ -126,6 +135,7 @@ const [projectsData, setProjectsData] = useState(null);
                           starReceived: data.starReceived,
                           happyCustomers: data.happyCustomers,
                           isActive: data.isActive,
+                          categoryId: data.categoryId,
                           imagefile: data.imagefile, // This should be a File object (for multipart/form-data)
                         };
 
@@ -149,6 +159,39 @@ const [projectsData, setProjectsData] = useState(null);
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
                   <Stack spacing={3}>
+                       <Controller
+              name="categoryId "
+              control={control}
+              rules={{ required: 'Project is required' }}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  select
+                  label="Project Category"
+                  disabled={isSubmitting || loading}
+                  error={!!errors.categoryId }
+                  helperText={errors.categoryId ?.message}
+                  fullWidth
+                   onChange={(e) => {
+        field.onChange(e); // Update the field value in React Hook Form
+        setValue('categoryId', e.target.value); // Programmatically set the value
+      }}
+                >
+                  {loading ? (
+                    <MenuItem disabled>Loading Category...</MenuItem>
+                  ) : ProjectCategories.length === 0 ? (
+                    <MenuItem disabled>No Category available</MenuItem>
+                  ) : (
+                    ProjectCategories.map((ProjectCategories) => (
+                      <MenuItem key={ProjectCategories.id} value={ProjectCategories.id}>
+                        {ProjectCategories.name} (ID: {ProjectCategories.id})
+                      </MenuItem>
+                    ))
+                  )}
+                </TextField>
+              )}
+            />
+
                     {/* Title Fields */}
                     <Grid container lg={12} md={12}  sm={12} spacing={2}>
                       <Grid item xs={4}>
