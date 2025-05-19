@@ -41,7 +41,7 @@ const ProjectGoalsForm = () => {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
-      projectId: '' || projectId,
+      projectId: '' || !isEdit ? projectId :'',
       title: '',
       title_pashto: '',
       title_dari: '',

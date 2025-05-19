@@ -2,160 +2,110 @@
 import { uniqueId } from 'lodash';
 
 import {
-  IconLayoutDashboard, IconTypography,
- IconAlignBoxLeftBottom, IconCheckbox, IconRadar, IconSlideshow, IconCaretUpDown, IconTable, IconForms,
-  IconAperture
+  IconLayoutDashboard,
+  IconUsers,
+  IconHistory,
+  IconAward,
+  IconRocket,
+  IconHeartHandshake,
+  IconBriefcase,
+  IconSlideshow,
+  IconTrophy,
+  IconBox,
+  IconCategory,
+  IconUser,
+  IconBuilding,
+  IconUsersGroup,
 } from '@tabler/icons-react';
-
 
 const Menuitems = [
   {
     navlabel: true,
     subheader: 'Home',
   },
-
   {
     id: uniqueId(),
     title: 'Dashboard',
     icon: IconLayoutDashboard,
     href: '/dashboard',
   },
-
-  {
-    id: uniqueId(),
-    title: 'Clients',
-    icon: IconAperture,
-    href: '/clients',
-  },
   {
     id: uniqueId(),
     title: 'Users',
-    icon: IconAperture,
+    icon: IconUsers,
     href: '/users',
   },
   {
     id: uniqueId(),
     title: 'History',
-    icon: IconAperture,
+    icon: IconHistory,
     href: '/history',
   },
   {
     id: uniqueId(),
     title: 'Leadership',
-    icon: IconAperture,
+    icon: IconAward,
     href: '/leadership',
   },
   {
     id: uniqueId(),
     title: 'Mission',
-    icon: IconAperture,
+    icon: IconRocket,
     href: '/mission',
   },
   {
     id: uniqueId(),
     title: 'Partnership',
-    icon: IconAperture,
+    icon: IconHeartHandshake,
     href: '/partnership',
   },
   {
     id: uniqueId(),
     title: 'Services',
-    icon: IconAperture,
+    icon: IconBriefcase,
     href: '/services',
   },
   {
     id: uniqueId(),
     title: 'Sliders',
-    icon: IconAperture,
+    icon: IconSlideshow,
     href: '/sliders',
   },
   {
     id: uniqueId(),
     title: 'Success Snapshots',
-    icon: IconAperture,
+    icon: IconTrophy,
     href: '/successSnapshots',
   },
   {
     id: uniqueId(),
     title: 'Projects',
-    icon: IconAperture,
+    icon: IconBox,
     href: '/projects',
   },
   {
     id: uniqueId(),
     title: 'Project Categories',
-    icon: IconAperture,
+    icon: IconCategory,
     href: '/projectCategories',
   },
   {
     id: uniqueId(),
     title: 'Bio',
-    icon: IconAperture,
+    icon: IconUser,
     href: '/bio',
   },
   {
     id: uniqueId(),
     title: 'Company Info',
-    icon: IconAperture,
+    icon: IconBuilding,
     href: '/companyInfo',
   },
   {
     id: uniqueId(),
     title: 'Team',
-    icon: IconAperture,
+    icon: IconUsersGroup,
     href: '/team',
-  },
-  {
-    navlabel: true,
-    subheader: 'Utilities',
-  },
-  {
-    id: uniqueId(),
-    title: 'Autocomplete',
-    icon: IconTypography,
-    href: '/form-elements/autocomplete',
-  },
-  {
-    id: uniqueId(),
-    title: 'Buttons',
-    icon: IconAlignBoxLeftBottom,
-    href: '/form-elements/button',
-  },
-  {
-    id: uniqueId(),
-    title: 'Checkbox',
-    icon: IconCheckbox,
-    href: '/form-elements/checkbox',
-  },
-  {
-    id: uniqueId(),
-    title: 'Radio',
-    icon: IconRadar,
-    href: '/form-elements/radio',
-  },
-  {
-    id: uniqueId(),
-    title: 'Slider',
-    icon: IconSlideshow,
-    href: '/form-elements/slider',
-  },
-  {
-    id: uniqueId(),
-    title: 'Switch',
-    icon: IconCaretUpDown,
-    href: '/form-elements/switch',
-  },
-  {
-    id: uniqueId(),
-    title: 'Tables',
-    icon: IconTable,
-    href: '/tables/basic-table',
-  },
-  {
-    id: uniqueId(),
-    title: 'Form Layouts',
-    icon: IconForms,
-    href: '/form-layouts',
   },
 ];
 
