@@ -102,7 +102,7 @@ const ServicesList = () => {
           gap: 2,
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
+        {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
           <TextField
             label="Search Services"
             variant="outlined"
@@ -111,7 +111,7 @@ const ServicesList = () => {
             sx={{ maxWidth: 400 }}
             placeholder="Enter search term"
           />
-        </Box>
+        </Box> */}
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Button
             variant="contained"
