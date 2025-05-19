@@ -6,15 +6,17 @@ const useUserStore = create((set) => ({
   users: [],
   loading: false,
   error: null,
+  PermissionError: null,
 
   fetchUsers: async ({ pageSize = 10, pageIndex = 0, search = '' } = {}) => {
     set({ loading: true, error: null });
     try {
       const users = await agent.Users.fetchUsers({ pageSize, pageIndex, search });
-      set({ users, loading: false });
+      set({ users, loading: false, hasMore: users.length === pageSize });
     } catch (error) {
-      set({ error: error.message, loading: false });
-      toast.error('Failed to fetch users.');
+      const errorMessage = error.response?.data?.message || error.message || 'Failed to fetch users';
+      const statusCode = error.response?.status || null;
+      set({ error: { message: errorMessage, statusCode }, loading: false });
     }
   },
 

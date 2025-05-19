@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import useUserStore from '../../context/userStore';
 
 const UserTable = ({
   users,
@@ -21,6 +22,7 @@ const UserTable = ({
   selected,
 }) => {
   const navigate = useNavigate();
+  const { error } = useUserStore();
 
   return (
     <TableContainer component={Paper}>
@@ -40,28 +42,43 @@ const UserTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map((user) => (
-            <TableRow
-              key={user.id}
-              selected={selected.includes(user.id)}
-            >
-              <TableCell>{user.username}</TableCell>
-              <TableCell>
-                <IconButton
-                  onClick={() => navigate(`/users/edit/${user.id}`)}
-                  color="primary"
-                >
-                  <Edit />
-                </IconButton>
-                <IconButton
-                  onClick={() => handleDelete(user.id)}
-                  color="error"
-                >
-                  <Delete />
-                </IconButton>
+          {error && error.statusCode === 403 && users.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={2} align="center">
+                Unauthorized access: {error.message}
               </TableCell>
             </TableRow>
-          ))}
+          ) : users.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={2} align="center">
+                No users found.
+              </TableCell>
+            </TableRow>
+          ) : (
+            users.map((user) => (
+              <TableRow
+                key={user.id}
+                selected={selected.includes(user.id)}
+              >
+                <TableCell>{user.username}</TableCell>
+                <TableCell>
+                  <IconButton
+                    onClick={() => navigate(`/users/edit/${user.id}`)}
+                    color="primary"
+                  >
+                    <Edit />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => handleDelete(user.id)}
+                    color="error"
+                    disabled={error && error.statusCode === 403} // Disable delete if 403
+                  >
+                    <Delete />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </TableContainer>

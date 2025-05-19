@@ -15,6 +15,7 @@ import useDebounce from '../../hooks/useDebounce';
 import userService from '../../services/userService';
 import useUserStore from '../../context/userStore';
 
+
 const UserList = () => {
   const { users, loading, hasMore, deleteUser, bulkDeleteUsers, fetchUsers } = useUserStore();
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const UserList = () => {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    setPage(0); // Reset to first page on search
+    setPage(0);
   };
 
   const handleSort = () => {
@@ -75,10 +76,6 @@ const UserList = () => {
     setOpenDialog(true);
   };
 
-  const handleBulkDelete = () => {
-    if (selected.length === 0) return toast.error('No users selected.');
-    setOpenDialog(true);
-  };
 
   const confirmDelete = async () => {
     try {
@@ -89,8 +86,11 @@ const UserList = () => {
         setSelected([]);
       }
       fetchUsers({ pageSize: rowsPerPage, pageIndex: page, search: debouncedSearch });
+      toast.success('User(s) deleted successfully.');
     } catch (error) {
-      toast.error('Failed to delete users.');
+      // Extract and display the server error message
+      const errorMessage = error.response?.data?.message || 'Failed to delete users.';
+      toast.error(errorMessage);
     } finally {
       setOpenDialog(false);
       setDeleteId(null);
@@ -124,14 +124,6 @@ const UserList = () => {
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Button
             variant="contained"
-            color="error"
-            onClick={handleBulkDelete}
-            disabled={selected.length === 0}
-          >
-            Delete Selected
-          </Button>
-          <Button
-            variant="contained"
             onClick={() => navigate('/users/create')}
           >
             Create New User
@@ -153,7 +145,7 @@ const UserList = () => {
           />
           <TablePagination
             component="div"
-            count={hasMore ? -1 : filteredUsers.length} // Disable total count display
+            count={hasMore ? -1 : filteredUsers.length}
             page={page}
             onPageChange={handleChangePage}
             rowsPerPage={rowsPerPage}
