@@ -13,7 +13,7 @@ const Login2 = () => {
    
   }}
       >
-    <Box
+   <Box
       sx={{
         position: 'relative',
         minHeight: '100vh', // Full viewport height
@@ -24,12 +24,15 @@ const Login2 = () => {
           left: 0,
           height: '100%',
           width: '100%',
-          background: 'radial-gradient(#d2f1df, #d3d7fa, #bad8f4)', // Gradient background
+          background: (theme) =>
+            theme.palette.mode === 'light'
+              ? 'radial-gradient(#d2f1df, #d3d7fa, #bad8f4)' // Light mode gradient
+              : 'radial-gradient(#2c3e50, #34495e, #2e4053)', // Dark mode gradient
           backgroundImage: `url('/src/assets/images/backgrounds/images.avif')`, // Your image path
           backgroundSize: '100% 100%', // Stretch to fit full page
           backgroundPosition: 'center', // Center the image
           backgroundRepeat: 'no-repeat', // No repeating
-          opacity: 0.3, // Subtle gradient/image opacity
+          opacity: (theme) => (theme.palette.mode === 'light' ? 0.3 : 0.2), // Slightly lower opacity in dark mode
           animation: 'gradient 15s ease infinite', // Gradient animation
           zIndex: 0, // Behind content
         },
@@ -53,9 +56,15 @@ const Login2 = () => {
               zIndex: 1,
               width: '100%',
               maxWidth: '500px',
-              backgroundColor: 'rgba(255, 255, 255, 0.7)', // Semi-transparent white background
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light'
+                  ? 'rgba(255, 255, 255, 0.7)' // Semi-transparent white for light mode
+                  : 'rgba(0, 0, 0, 0.7)', // Semi-transparent dark for dark mode
               backdropFilter: 'blur(8px)', // Frosted glass effect
-              border: '1px solid rgba(255, 255, 255, 0.2)', // Subtle border
+              border: (theme) =>
+                theme.palette.mode === 'light'
+                  ? '1px solid rgba(255, 255, 255, 0.2)' // Light mode border
+                  : '1px solid rgba(255, 255, 255, 0.1)', // Dark mode border
             }}
           >
             <Box display="flex" alignItems="center" justifyContent="center">
@@ -63,8 +72,15 @@ const Login2 = () => {
             </Box>
             <AuthLogin
               subtext={
-                <Typography variant="subtitle1" textAlign="center" color="textSecondary" mb={1}>
-                  Your Social Campaigns
+                <Typography
+                  variant="subtitle1"
+                  textAlign="center"
+                  color={(theme) =>
+                    theme.palette.mode === 'light' ? 'textSecondary' : 'textPrimary'
+                  } // Adjust text color for contrast
+                  mb={1}
+                >
+                  Login Here
                 </Typography>
               }
             />
