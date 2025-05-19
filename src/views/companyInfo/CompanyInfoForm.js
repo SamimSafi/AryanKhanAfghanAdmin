@@ -36,7 +36,7 @@ const CompanyInfoForm = () => {
     defaultValues: {
       name: '',
       name_pashto: '',
-      name_dari: '',
+      name_Dari: '',
       description: '',
       description_pashto: '',
       description_dari: '',
@@ -57,7 +57,7 @@ const CompanyInfoForm = () => {
             // Populate form fields using setValue
             setValue('name', companyInfo.name || '');
             setValue('name_pashto', companyInfo.name_pashto || '');
-            setValue('name_dari', companyInfo.name_dari || '');
+            setValue('name_Dari', companyInfo.name_Dari || '');
             setValue('description', companyInfo.description || '');
             setValue('description_pashto', companyInfo.description_pashto || '');
             setValue('description_dari', companyInfo.description_dari || '');
@@ -106,8 +106,8 @@ const CompanyInfoForm = () => {
             <Grid container lg={12} sm={12} md={12} spacing={3}>
               <Grid item xs={12} sm={4}>
                 <TextField
-                  label="Title (English)"
-                  {...register('name', { required: 'Title (English) is required' })}
+                  label="Name (English)"
+                  {...register('name', { required: 'Name (English) is required' })}
                   fullWidth
                   disabled={isSubmitting}
                   error={!!errors.name}
@@ -116,8 +116,8 @@ const CompanyInfoForm = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
-                  label="Title (Pashto)"
-                  {...register('name_pashto', { required: 'Title (Pashto) is required' })}
+                  label="Name (Pashto)"
+                  {...register('name_pashto', { required: 'Name (Pashto) is required' })}
                   fullWidth
                   disabled={isSubmitting}
                   error={!!errors.name_pashto}
@@ -126,12 +126,12 @@ const CompanyInfoForm = () => {
               </Grid>
               <Grid item xs={12} sm={4}>
                 <TextField
-                  label="Title (Dari)"
-                  {...register('name_dari', { required: 'Title (Dari) is required' })}
+                  label="Name (Dari)"
+                  {...register('name_Dari', { required: 'Name (Dari) is required' })}
                   fullWidth
                   disabled={isSubmitting}
-                  error={!!errors.name_dari}
-                  helperText={errors.name_dari?.message}
+                  error={!!errors.name_Dari}
+                  helperText={errors.name_Dari?.message}
                 />
               </Grid>
             </Grid>
