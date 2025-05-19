@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router';
 import {
   Avatar,
@@ -11,7 +11,7 @@ import {
   ListItemText, Typography
 } from '@mui/material';
 
-import { IconDashboard, IconMail, IconUser } from '@tabler/icons-react';
+import { IconDashboard} from '@tabler/icons-react';
 
 import ProfileImg from 'src/assets/images/profile/user-1.jpg';
 
@@ -65,7 +65,7 @@ const Profile = () => {
           },
         }}
       >
-        <MenuItem>
+        {/* <MenuItem>
           <Link to='/form-layouts'>
             <Box display='flex' alignItems='center'>
               <ListItemIcon>
@@ -74,17 +74,7 @@ const Profile = () => {
               <ListItemText><Typography variant='subtitle1' color='textPrimary'>My Profile</Typography></ListItemText>
             </Box>
           </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link to='/tables/basic-table'>
-            <Box display='flex' alignItems='center'>
-              <ListItemIcon>
-                <IconMail width={20} />
-              </ListItemIcon>
-              <ListItemText><Typography variant='subtitle1' color='textPrimary'>Performance</Typography></ListItemText>
-            </Box>
-          </Link>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem>
           <Link to='/dashboard'>
             <Box display='flex' alignItems='center'>
