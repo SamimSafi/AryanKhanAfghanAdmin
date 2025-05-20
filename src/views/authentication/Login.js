@@ -4,6 +4,7 @@ import { Grid, Box, Card, Stack, Typography } from '@mui/material';
 // components
 import PageContainer from 'src/components/container/PageContainer';
 import Logo from 'src/layouts/full/shared/logo/Logo';
+import background from 'src/assets/images/backgrounds/images.avif';
 import AuthLogin from './auth/AuthLogin';
 
 const Login2 = () => {
@@ -16,29 +17,53 @@ const Login2 = () => {
    <Box
       sx={{
         position: 'relative',
-        minHeight: '100vh', // Full viewport height
-        '&:before': {
-          content: '""',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      {/* Background Image as <img> */}
+      <Box
+        sx={{
           position: 'absolute',
           top: 0,
           left: 0,
           height: '100%',
           width: '100%',
-          background: (theme) =>
-            theme.palette.mode === 'light'
-              ? 'radial-gradient(#d2f1df, #d3d7fa, #bad8f4)' // Light mode gradient
-              : 'radial-gradient(#2c3e50, #34495e, #2e4053)', // Dark mode gradient
-          backgroundImage: `url('/src/assets/images/backgrounds/images.avif')`, // Your image path
-          backgroundSize: '100% 100%', // Stretch to fit full page
-          backgroundPosition: 'center', // Center the image
-          backgroundRepeat: 'no-repeat', // No repeating
-          opacity: (theme) => (theme.palette.mode === 'light' ? 0.3 : 0.2), // Slightly lower opacity in dark mode
-          animation: 'gradient 15s ease infinite', // Gradient animation
-          zIndex: 0, // Behind content
-        },
-      }}
-    >
-      <Grid container spacing={0} justifyContent="center" sx={{ height: '100vh' }}>
+          zIndex: 0,
+        }}
+      >
+        <img
+          src={background}
+          alt="Background"
+          style={{
+            height: '100%',
+            width: '100%',
+            objectFit: 'cover', // Mimics background-size: 100% 100%
+            objectPosition: 'center', // Mimics background-position: center
+          }}
+        />
+        {/* Gradient Overlay */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            height: '100%',
+            width: '100%',
+            background: (theme) =>
+              theme.palette.mode === 'light'
+                ? 'radial-gradient(#d2f1df, #d3d7fa, #bad8f4)'
+                : 'radial-gradient(#2c3e50, #34495e, #2e4053)',
+            opacity: (theme) => (theme.palette.mode === 'light' ? 0.3 : 0.2),
+            animation: 'gradient 15s ease infinite',
+          }}
+        />
+      </Box>
+
+      {/* Content */}
+      <Grid container spacing={0} justifyContent="center" sx={{ height: '100vh', zIndex: 1 }}>
         <Grid
           item
           xs={12}
@@ -53,18 +78,17 @@ const Login2 = () => {
             elevation={9}
             sx={{
               p: 4,
-              zIndex: 1,
               width: '100%',
               maxWidth: '500px',
               backgroundColor: (theme) =>
                 theme.palette.mode === 'light'
-                  ? 'rgba(255, 255, 255, 0.7)' // Semi-transparent white for light mode
-                  : 'rgba(0, 0, 0, 0.7)', // Semi-transparent dark for dark mode
-              backdropFilter: 'blur(8px)', // Frosted glass effect
+                  ? 'rgba(255, 255, 255, 0.7)'
+                  : 'rgba(0, 0, 0, 0.7)',
+              backdropFilter: 'blur(8px)',
               border: (theme) =>
                 theme.palette.mode === 'light'
-                  ? '1px solid rgba(255, 255, 255, 0.2)' // Light mode border
-                  : '1px solid rgba(255, 255, 255, 0.1)', // Dark mode border
+                  ? '1px solid rgba(255, 255, 255, 0.2)'
+                  : '1px solid rgba(255, 255, 255, 0.1)',
             }}
           >
             <Box display="flex" alignItems="center" justifyContent="center">
@@ -77,7 +101,7 @@ const Login2 = () => {
                   textAlign="center"
                   color={(theme) =>
                     theme.palette.mode === 'light' ? 'textSecondary' : 'textPrimary'
-                  } // Adjust text color for contrast
+                  }
                   mb={1}
                 >
                   Login Here

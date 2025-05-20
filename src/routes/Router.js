@@ -59,7 +59,7 @@ const CompanyCoverPhotoForm = lazy(() => import('../views/companyInfo/CompanyCov
 const TeamList = lazy(() => import('../views/team/TeamList'));
 const TeamForm = lazy(() => import('../views/team/TeamForm'));
 const TeamImageForm = lazy(() => import('../views/team/TeamImageForm'));
-
+const basePath = import.meta.env.VITE_BASE_PATH || '/';
 
 const Router = [
   {
@@ -136,6 +136,8 @@ const Router = [
   },
 ];
 
-const router = createBrowserRouter(Router);
+const router = createBrowserRouter(Router, {
+  basename: basePath, // Set basename for /admin/ in production
+});
 
 export default router;

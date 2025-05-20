@@ -10,9 +10,24 @@ import {
   Paper,
   TableSortLabel,
 } from '@mui/material';
-import { Delete, Edit } from '@mui/icons-material';
+import { Delete, Edit, ErrorOutline } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../../context/userStore';
+import { styled } from '@mui/material/styles';
+
+const ErrorTableRow = styled(TableRow)(({ theme }) => ({
+  backgroundColor: theme.palette.error.light,
+  '& .MuiTableCell-root': {
+    color: theme.palette.error.contrastText,
+    fontWeight: theme.typography.fontWeightMedium,
+    padding: theme.spacing(2),
+    borderTop: `1px solid ${theme.palette.error.main}`,
+    borderBottom: `1px solid ${theme.palette.error.main}`,
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+  },
+}));
 
 const UserTable = ({
   users,
@@ -42,12 +57,13 @@ const UserTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {error && error.statusCode === 403 && users.length === 0 ? (
-            <TableRow>
+          {error && error.statusCode === 403 ? (
+            <ErrorTableRow>
               <TableCell colSpan={2} align="center">
-                Unauthorized access: {error.message}
+                <ErrorOutline sx={{ verticalAlign: 'middle', mr: 1 }} />
+                Unauthorized access: You do not have permission to view this data.
               </TableCell>
-            </TableRow>
+            </ErrorTableRow>
           ) : users.length === 0 ? (
             <TableRow>
               <TableCell colSpan={2} align="center">
@@ -71,7 +87,7 @@ const UserTable = ({
                   <IconButton
                     onClick={() => handleDelete(user.id)}
                     color="error"
-                    disabled={error && error.statusCode === 403} // Disable delete if 403
+                    disabled={error && error.statusCode === 403}
                   >
                     <Delete />
                   </IconButton>
