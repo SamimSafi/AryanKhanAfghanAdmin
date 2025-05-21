@@ -91,7 +91,7 @@ const Login2 = () => {
                   : '1px solid rgba(255, 255, 255, 0.1)',
             }}
           >
-            <Box display="flex" alignItems="center" justifyContent="center">
+            <Box display="flex" alignItems="center" justifyContent="center" mb={3}>
               <Logo />
             </Box>
             <AuthLogin

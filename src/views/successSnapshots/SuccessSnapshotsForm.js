@@ -35,6 +35,10 @@ const SuccessSnapshotsForm = () => {
       title: '',
       title_pashto: '',
       title_dari: '',
+      completeProjectcount: '',
+      HappyClientCount: '',
+      QualifiedEnginnerCount: '',
+      YearsExperience: '',
       description: '',
       description_pashto: '',
       description_dari: '',
@@ -53,6 +57,10 @@ const SuccessSnapshotsForm = () => {
             setValue('title', SuccessSnapshots.title || '');
             setValue('title_pashto', SuccessSnapshots.title_pashto || '');
             setValue('title_dari', SuccessSnapshots.title_dari || '');
+            setValue('completeProjectcount', SuccessSnapshots.completeProjectcount || '');
+            setValue('HappyClientCount', SuccessSnapshots.HappyClientCount || '');
+            setValue('QualifiedEnginnerCount', SuccessSnapshots.QualifiedEnginnerCount || '');
+            setValue('YearsExperience', SuccessSnapshots.YearsExperience || '');
             setValue('description', SuccessSnapshots.description || '');
             setValue('description_pashto', SuccessSnapshots.description_pashto || '');
             setValue('description_dari', SuccessSnapshots.description_dari || '');
@@ -123,6 +131,48 @@ const SuccessSnapshotsForm = () => {
                   disabled={isSubmitting}
                   error={!!errors.title_dari}
                   helperText={errors.title_dari?.message}
+                />
+              </Grid>
+            </Grid>
+            <Grid container lg={12} md={12}  sm={12} spacing={3}>
+              <Grid item xs={3}>
+                <TextField
+                  label="complete Projectcount"
+                  {...register('completeProjectcount', { required: 'complete Projectcount is required' })}
+                  fullWidth
+                  disabled={isSubmitting}
+                  error={!!errors.completeProjectcount}
+                  helperText={errors.completeProjectcount?.message}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  label="Happy Client Count"
+                  {...register('HappyClientCount', { required: 'Happy Client Count is required' })}
+                  fullWidth
+                  disabled={isSubmitting}
+                  error={!!errors.HappyClientCount}
+                  helperText={errors.HappyClientCount?.message}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  label="Qualified Engineer Count"
+                  {...register('QualifiedEnginnerCount', { required: 'Qualified Engineer Count is required' })}
+                  fullWidth
+                  disabled={isSubmitting}
+                  error={!!errors.QualifiedEnginnerCount}
+                  helperText={errors.QualifiedEnginnerCount?.message}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  label="Years Experience"
+                  {...register('YearsExperience', { required: 'Years Experience is required' })}
+                  fullWidth
+                  disabled={isSubmitting}
+                  error={!!errors.YearsExperience}
+                  helperText={errors.YearsExperience?.message}
                 />
               </Grid>
             </Grid>

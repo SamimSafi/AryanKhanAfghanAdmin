@@ -39,6 +39,10 @@ const SuccessSnapshotsTable = ({
             </TableCell>
             <TableCell>Title Pashto</TableCell>
             <TableCell>Title Dari</TableCell>
+            <TableCell>complete Project count</TableCell>
+            <TableCell>Happy Client Count</TableCell>
+            <TableCell>Qualified Enginner Count</TableCell>
+            <TableCell>Years Experience</TableCell>
             <TableCell>Description</TableCell>
             <TableCell>Description Pashto</TableCell>
             <TableCell>Description Dari</TableCell>
@@ -57,6 +61,10 @@ const SuccessSnapshotsTable = ({
               <TableCell>{SuccessSnapshots.title}</TableCell>
               <TableCell>{SuccessSnapshots.title_pashto}</TableCell>
               <TableCell>{SuccessSnapshots.title_dari}</TableCell>
+              <TableCell>{SuccessSnapshots.completeProjectcount}</TableCell>
+              <TableCell>{SuccessSnapshots.HappyClientCount}</TableCell>
+              <TableCell>{SuccessSnapshots.QualifiedEnginnerCount}</TableCell>
+              <TableCell>{SuccessSnapshots.YearsExperience}</TableCell>
               <TableCell>{SuccessSnapshots.description}</TableCell>
               <TableCell>{SuccessSnapshots.description_pashto}</TableCell>
               <TableCell>{SuccessSnapshots.description_dari}</TableCell>
