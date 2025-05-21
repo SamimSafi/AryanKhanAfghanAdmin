@@ -20,9 +20,12 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Image as LogoIcon,
+  Cancel,
+  CheckCircle,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import ImageDisplay from '../../components/ImageDisplay';
+import useTeamStore from '../../context/teamStore';
 
 const TeamTable = ({
   Team,
@@ -34,7 +37,7 @@ const TeamTable = ({
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedTeamyId, setSelectedTeamyId] = useState(null);
-
+const { activateTeam, deactivateTeam } = useTeamStore();
   // Handle menu open
   const handleMenuOpen = (event, teamyId) => {
     setAnchorEl(event.currentTarget);
@@ -91,7 +94,8 @@ const TeamTable = ({
             <TableCell>twitter</TableCell>
             <TableCell>instagram</TableCell>
             <TableCell>linkedIn</TableCell>
-            <TableCell>Logo</TableCell>
+            <TableCell>Image</TableCell>
+            <TableCell>Is Active</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -118,8 +122,19 @@ const TeamTable = ({
                 <ImageDisplay
                               path={teamy.image}
                               alt={teamy.name}
-                              fallbackText="No Logo"
+                              fallbackText="No Image"
                             />
+              </TableCell>
+                  <TableCell>
+                        {teamy.isActive ? (
+                          <span style={{ backgroundColor: 'green', color: 'white', padding: '4px 8px', borderRadius: '4px' }}>
+                            Active
+                          </span>
+                        ) : (
+                          <span style={{ backgroundColor: 'red', color: 'white', padding: '4px 8px', borderRadius: '4px' }}>
+                            Deactive
+                          </span>
+                        )}
               </TableCell>
               <TableCell>
                 <IconButton
@@ -153,6 +168,21 @@ const TeamTable = ({
                     </ListItemIcon>
                     <ListItemText>Delete</ListItemText>
                   </MenuItem>
+                   {teamy.isActive ? (
+                            <MenuItem onClick={() => { deactivateTeam(teamy.id); handleMenuClose(); }}>
+                              <ListItemIcon>
+                                <Cancel fontSize="small" />
+                              </ListItemIcon>
+                              Deactivate Team
+                            </MenuItem>
+                          ) : (
+                            <MenuItem onClick={() => { activateTeam(teamy.id); handleMenuClose(); }}>
+                              <ListItemIcon>
+                                <CheckCircle fontSize="small" />
+                              </ListItemIcon>
+                              Activate Team
+                            </MenuItem>
+                          )}
                   <MenuItem onClick={() => handleMenuAction('updateImage', teamy.id)}>
                     <ListItemIcon>
                       <LogoIcon fontSize="small" />
