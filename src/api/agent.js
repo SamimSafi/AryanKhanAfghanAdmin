@@ -81,6 +81,16 @@ const HistoryAPI = {
     const response = await axiosInstance.post(`/history/${id}/deactivate`);
     return response.data;
   },
+   updateHistoryImage: async (id, logoFile) => {
+    const formData = new FormData();
+    formData.append('image', logoFile);
+    const response = await axiosInstance.put(`/history/${id}/image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
   
 };
 

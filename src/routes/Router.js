@@ -14,6 +14,7 @@ const Login = lazy(() => import('../views/authentication/Login'));
 // system component path
 const HistoryList = lazy(() => import('../views/history/HistoryList'));
 const HistoryForm = lazy(() => import('../views/history/HistoryForm'));
+const HistoryImageForm = lazy(() => import('../views/history/HistoryImageForm'));
 
 const UserList = lazy(() => import('../views/users/UserList'));
 const UserForm = lazy(() => import('../views/users/UserForm'));
@@ -77,6 +78,7 @@ const Router = [
           { path: '/history', element: <HistoryList /> },
           { path: '/history/create', element: <HistoryForm /> },
           { path: '/history/edit/:id', element: <HistoryForm /> },
+          { path: '/history/:id/image', element: <HistoryImageForm /> },
           { path: '/leadership', element: <LeadershipList /> },
           { path: '/leadership/create', element: <LeadershipForm /> },
           { path: '/leadership/edit/:id', element: <LeadershipForm /> },

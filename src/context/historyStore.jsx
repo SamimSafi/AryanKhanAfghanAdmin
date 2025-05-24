@@ -78,6 +78,24 @@ const useHistorytore = create((set) => ({
   }
 },
 
+updateHistoryImage: async (id, logoFile) => {
+    set({ loading: true, error: null });
+    try {
+      const updatedHistory = await agent.History.updateHistoryImage(id, logoFile);
+      set((state) => ({
+        History: state.History.map((History) =>
+          History.id === id ? { ...History, imagePath: updatedHistory.imagePath } : History
+        ),
+        loading: false,
+      }));
+      return updatedHistory;
+    } catch (error) {
+      set({ error: error.message, loading: false });
+      toast.error('Failed to update History Image.');
+      throw error;
+    }
+  },
+  
   activateHistory: async (id) => {
     set({ loading: true, error: null });
     try {

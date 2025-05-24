@@ -13,8 +13,8 @@ import {
   Card,
 } from '@mui/material';
 import { toast } from 'react-toastify';
-import useHistorytore from '../../context/HistoryStore';
 import { Controller, useForm } from 'react-hook-form';
+import useHistorytore from '../../context/historyStore';
 
 
 const HistoryForm = () => {
