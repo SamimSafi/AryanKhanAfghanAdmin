@@ -40,6 +40,9 @@ const ProjectsForm = lazy(() => import('../views/projects/ProjectsForm'));
 const ProjectGoalsList = lazy(() => import('../views/projectGoals/ProjectGoalsList'));
 const ProjectGoalsForm = lazy(() => import('../views/projectGoals/ProjectGoalsForm'));
 
+const ProjectFinalOutcomesList = lazy(() => import('../views/projectFinalOutcomes/ProjectFinalOutcomesList'));
+const ProjectFinalOutcomesForm = lazy(() => import('../views/projectFinalOutcomes/ProjectFinalOutcomesForm'));
+
 const ProjectSlidersList = lazy(() => import('../views/projectSliders/ProjectSlidersList'));
 const ProjectSlidersForm = lazy(() => import('../views/projectSliders/ProjectSlidersForm'));
 
@@ -109,6 +112,9 @@ const Router = [
           { path: '/projectGoals/:projectId', element: <ProjectGoalsList /> },
           { path: '/projectGoals/create/:projectId', element: <ProjectGoalsForm /> },
           { path: '/projectGoals/edit/:id', element: <ProjectGoalsForm /> },
+          { path: '/projectFinalOutcomes/:projectId', element: <ProjectFinalOutcomesList /> },
+          { path: '/projectFinalOutcomes/create/:projectId', element: <ProjectFinalOutcomesForm /> },
+          { path: '/projectFinalOutcomes/edit/:id', element: <ProjectFinalOutcomesForm /> },
           { path: '/projectSliders/:projectId', element: <ProjectSlidersList /> },
           { path: '/projectSliders/create/:projectId', element: <ProjectSlidersForm /> },
           { path: '/projectSliders/edit/:id', element: <ProjectSlidersForm /> },

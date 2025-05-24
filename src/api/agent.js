@@ -478,6 +478,39 @@ const ProjectSlidersAPI = {
   
 };
 
+// ProjectFinalOutcomes API calls
+const ProjectFinalOutcomesAPI = {
+    fetchProjectFinalOutcomes: async (projectId) => {
+    const response = await axiosInstance.get(`/project-final-outcomes/project/${projectId}`);
+    return response.data;
+  },
+  createProjectFinalOutcomes: async (ProjectFinalOutcomesData) => {
+   const response = await axiosInstance.post('/project-final-outcomes', ProjectFinalOutcomesData);
+    return response.data;
+  },
+   updateProjectFinalOutcomes: async (id, ProjectFinalOutcomesData) => {
+    const response = await axiosInstance.put(`/project-final-outcomes/${id}`, ProjectFinalOutcomesData);
+    return response.data;
+  },
+  deleteProjectFinalOutcomes: async (ProjectFinalOutcomesId) => {
+    const response = await axiosInstance.delete(`/project-final-outcomes/${ProjectFinalOutcomesId}`);
+    return response.data;
+  },
+  getProjectFinalOutcomes: async (ProjectFinalOutcomesId) => {
+    const response = await axiosInstance.get(`/project-final-outcomes/${ProjectFinalOutcomesId}`);
+    return response.data;
+  },
+   activateProjectFinalOutcomes: async (id) => {
+    const response = await axiosInstance.post(`/project-final-outcomes/${id}/activate`);
+    return response.data;
+  },
+  deactivateProjectFinalOutcomes: async (id) => {
+    const response = await axiosInstance.post(`/project-final-outcomes/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
+
 // CompanyInfo API calls
 const CompanyInfoAPI = {
   fetchCompanyInfo: async () => {
@@ -658,6 +691,7 @@ const agent = {
  CompanyInfo: CompanyInfoAPI,
  Team: TeamAPI,
  JopPosting: JobPostingsAPI,
+ ProjectFinalOutcomes: ProjectFinalOutcomesAPI,
 };
 
 export default agent;

@@ -143,6 +143,12 @@ const ProjectsFormTable = ({
           </ListItemIcon>
           View Project Sliders
         </MenuItem>
+        <MenuItem onClick={() => handleNavigate(`/projectFinalOutcomes/${Projects.id}`)}>
+          <ListItemIcon>
+            <Slideshow fontSize="small" />
+          </ListItemIcon>
+          View Project Final Outcome
+        </MenuItem>
         {Projects.isActive ? (
           <MenuItem onClick={() => { deactivateProjects(Projects.id); handleClose(); }}>
             <ListItemIcon>
