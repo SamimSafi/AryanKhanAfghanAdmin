@@ -60,6 +60,9 @@ const CompanyCoverPhotoForm = lazy(() => import('../views/companyInfo/CompanyCov
 const TeamList = lazy(() => import('../views/team/TeamList'));
 const TeamForm = lazy(() => import('../views/team/TeamForm'));
 const TeamImageForm = lazy(() => import('../views/team/TeamImageForm'));
+
+const JobPostingList = lazy(() => import('../views/jobPosting/JobPostingList'));
+const JobPostingForm = lazy(() => import('../views/jobPosting/JobPostingForm'));
 const basePath = import.meta.env.VITE_BASE_PATH || '/';
 
 const Router = [
@@ -121,6 +124,9 @@ const Router = [
           { path: '/team/create', element: <TeamForm /> },
           { path: '/team/edit/:id', element: <TeamForm /> },
           { path: '/team/:id/image', element: <TeamImageForm /> },
+          { path: '/jobPosting', element: <JobPostingList /> },
+          { path: '/jobPosting/create', element: <JobPostingForm /> },
+          { path: '/jobPosting/edit/:id', element: <JobPostingForm /> },
           { path: '*', element: <Navigate to="/auth/404" /> },
         ],
       },

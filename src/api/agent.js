@@ -605,6 +605,38 @@ const TeamAPI = {
     return response.data;
   },
 };
+
+const JobPostingsAPI = {
+  fetchJobPostings: async () => {
+    const response = await axiosInstance.get('/job-postings');
+    return response.data;
+  },
+  createJobPosting: async (jobPostingData) => {
+    const response = await axiosInstance.post('/job-postings', jobPostingData);
+    return response.data;
+  },
+  updateJobPosting: async (id, jobPostingData) => {
+    const response = await axiosInstance.put(`/job-postings/${id}`, jobPostingData);
+    return response.data;
+  },
+  deleteJobPosting: async (jobPostingId) => {
+    const response = await axiosInstance.delete(`/job-postings/${jobPostingId}`);
+    return response.data;
+  },
+  getJobPosting: async (jobPostingId) => {
+    const response = await axiosInstance.get(`/job-postings/${jobPostingId}`);
+    return response.data;
+  },
+  activateJobPosting: async (id) => {
+    const response = await axiosInstance.post(`/job-postings/${id}/activate`);
+    return response.data;
+  },
+  deactivateJobPosting: async (id) => {
+    const response = await axiosInstance.post(`/job-postings/${id}/deactivate`);
+    return response.data;
+  },
+};
+
 // Centralized agent exporting all resource APIs
 const agent = {
   Auth:AuthAPI,
@@ -625,6 +657,7 @@ const agent = {
  Bio: BioAPI,
  CompanyInfo: CompanyInfoAPI,
  Team: TeamAPI,
+ JopPosting: JobPostingsAPI,
 };
 
 export default agent;

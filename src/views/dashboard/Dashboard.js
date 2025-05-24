@@ -41,6 +41,7 @@ const dashboardRoutes = [
   { label: 'Success Snapshots', path: '/successSnapshots', icon: <IconTrophy /> },
   { label: 'Projects', path: '/projects', icon: <IconRocket /> },
   { label: 'Project Categories', path: '/projectCategories', icon: <IconCategory /> },
+  { label: 'Job Postings', path: '/jobposting', icon: <IconCategory /> },
   { label: 'Bio', path: '/bio', icon: <IconUser /> },
   { label: 'Company Info', path: '/companyInfo', icon: <IconBuilding /> },
   { label: 'Team', path: '/team', icon: <IconUsersGroup /> },

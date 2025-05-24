@@ -91,6 +91,12 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
+    title: 'Job Posting',
+    icon: IconCategory,
+    href: '/jobposting',
+  },
+  {
+    id: uniqueId(),
     title: 'Bio',
     icon: IconUser,
     href: '/bio',
