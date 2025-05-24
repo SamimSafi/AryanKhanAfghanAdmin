@@ -16,7 +16,8 @@ import {
   IconUser,
   IconBuilding,
   IconUsersGroup,
-  IconFileCv
+  IconFileCv,
+  IconHandClick
 } from '@tabler/icons-react';
 import { IconAddressBook } from '@tabler/icons-react';
 
@@ -120,6 +121,12 @@ const Menuitems = [
     title: 'Contact',
     icon: IconAddressBook,
     href: '/contact',
+  },
+  {
+    id: uniqueId(),
+    title: 'Why Choose Us',
+    icon: IconHandClick,
+    href: '/whyChooseUs', 
   },
 ];
 

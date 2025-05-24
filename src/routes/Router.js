@@ -67,6 +67,9 @@ const TeamImageForm = lazy(() => import('../views/team/TeamImageForm'));
 const JobPostingList = lazy(() => import('../views/jobPosting/JobPostingList'));
 const JobPostingForm = lazy(() => import('../views/jobPosting/JobPostingForm'));
 
+const WhyChooseUsList = lazy(() => import('../views/whychooseus/WhyChooseUsList'));
+const WhyChooseUsForm = lazy(() => import('../views/whychooseus/WhyChooseUsForm'));
+
 const ContactList = lazy(() => import('../views/contact/ContactList'));
 const basePath = import.meta.env.VITE_BASE_PATH || '/';
 
@@ -136,6 +139,9 @@ const Router = [
           { path: '/jobPosting/create', element: <JobPostingForm /> },
           { path: '/jobPosting/edit/:id', element: <JobPostingForm /> },
           { path: '/contact', element: <ContactList /> },
+          { path: '/whyChooseUs', element: <WhyChooseUsList /> },
+          { path: '/whyChooseUs/create', element: <WhyChooseUsForm /> },
+          { path: '/whyChooseUs/edit/:id', element: <WhyChooseUsForm /> },
           { path: '*', element: <Navigate to="/auth/404" /> },
         ],
       },

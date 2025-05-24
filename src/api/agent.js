@@ -679,6 +679,40 @@ const ContactAPI = {
     return response.data;
   },
 };
+
+// ProjectFinalOutcomes API calls
+const WhyChooseUsAPI = {
+    fetchWhyChooseUs: async () => {
+    const response = await axiosInstance.get(`/why-choose-us`);
+    return response.data;
+  },
+  createWhyChooseUs: async (WhyChooseUsData) => {
+   const response = await axiosInstance.post('/why-choose-us', WhyChooseUsData);
+    return response.data;
+  },
+   updateWhyChooseUs: async (id, WhyChooseUsData) => {
+    const response = await axiosInstance.put(`/why-choose-us/${id}`, WhyChooseUsData);
+    return response.data;
+  },
+  deleteWhyChooseUs: async (WhyChooseUsId) => {
+    const response = await axiosInstance.delete(`/why-choose-us/${WhyChooseUsId}`);
+    return response.data;
+  },
+  getWhyChooseUs: async (WhyChooseUsId) => {
+    const response = await axiosInstance.get(`/why-choose-us/${WhyChooseUsId}`);
+    return response.data;
+  },
+   activateWhyChooseUs: async (id) => {
+    const response = await axiosInstance.post(`/why-choose-us/${id}/activate`);
+    return response.data;
+  },
+  deactivateWhyChooseUs: async (id) => {
+    const response = await axiosInstance.post(`/why-choose-us/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
+
 // Centralized agent exporting all resource APIs
 const agent = {
   Auth:AuthAPI,
@@ -702,6 +736,7 @@ const agent = {
  JopPosting: JobPostingsAPI,
  ProjectFinalOutcomes: ProjectFinalOutcomesAPI,
  Contact: ContactAPI,
+ WhyChooseUs: WhyChooseUsAPI,
 };
 
 export default agent;

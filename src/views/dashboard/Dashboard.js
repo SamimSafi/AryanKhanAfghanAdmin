@@ -27,6 +27,7 @@ import {
   IconBuilding,
   IconUsersGroup,
   IconFileCv,
+  IconHandClick,
 } from '@tabler/icons-react';
 import { IconAddressBook } from '@tabler/icons-react';
 
@@ -48,6 +49,7 @@ const dashboardRoutes = [
   { label: 'Company Info', path: '/companyInfo', icon: <IconBuilding /> },
   { label: 'Team', path: '/team', icon: <IconUsersGroup /> },
   { label: 'Contact', path: '/contact', icon: <IconAddressBook /> },
+  { label: 'Why Choose us', path: '/whyChooseUs', icon: <IconHandClick /> },
 ];
 
 // Styled Card with orange and dark green low-opacity colors
