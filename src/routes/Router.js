@@ -66,6 +66,8 @@ const TeamImageForm = lazy(() => import('../views/team/TeamImageForm'));
 
 const JobPostingList = lazy(() => import('../views/jobPosting/JobPostingList'));
 const JobPostingForm = lazy(() => import('../views/jobPosting/JobPostingForm'));
+
+const ContactList = lazy(() => import('../views/contact/ContactList'));
 const basePath = import.meta.env.VITE_BASE_PATH || '/';
 
 const Router = [
@@ -133,6 +135,7 @@ const Router = [
           { path: '/jobPosting', element: <JobPostingList /> },
           { path: '/jobPosting/create', element: <JobPostingForm /> },
           { path: '/jobPosting/edit/:id', element: <JobPostingForm /> },
+          { path: '/contact', element: <ContactList /> },
           { path: '*', element: <Navigate to="/auth/404" /> },
         ],
       },

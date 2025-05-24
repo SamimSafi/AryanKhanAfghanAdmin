@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import useProjectFinalOutcomesStore from '../../context/projectFinalOutcomesStore';
 
 const ProjectFinalOutcomesTable = ({
-  projectFinalOutcomes,
+  ProjectFinalOutcomes,
   sortOrder,
   handleSort,
   handleDelete,
@@ -50,7 +50,7 @@ const ProjectFinalOutcomesTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {projectFinalOutcomes.map((outcome) => (
+          {ProjectFinalOutcomes.map((outcome) => (
             <TableRow
               key={outcome.id}
               selected={selected.includes(outcome.id)}

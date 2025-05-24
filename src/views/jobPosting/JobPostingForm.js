@@ -126,8 +126,8 @@ const JobPostingForm = () => {
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3}>
-            <Grid container spacing={3}>
-              <Grid item xs={6}>
+            <Grid container lg={12} md={12} sm={12} spacing={3}>
+              <Grid item xs={4}>
                 <TextField
                   label="Title (English)"
                   {...register('title', { required: 'Title (English) is required' })}
@@ -137,7 +137,7 @@ const JobPostingForm = () => {
                   helperText={errors.title?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Title (Pashto)"
                   {...register('title_pashto', { required: 'Title (Pashto) is required' })}
@@ -147,7 +147,7 @@ const JobPostingForm = () => {
                   helperText={errors.title_pashto?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Title (Dari)"
                   {...register('title_dari', { required: 'Title (Dari) is required' })}
@@ -157,7 +157,7 @@ const JobPostingForm = () => {
                   helperText={errors.title_dari?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Description (English)"
                   {...register('description', { required: 'Description (English) is required' })}
@@ -169,7 +169,7 @@ const JobPostingForm = () => {
                   helperText={errors.description?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Description (Pashto)"
                   {...register('description_pashto', { required: 'Description (Pashto) is required' })}
@@ -181,7 +181,7 @@ const JobPostingForm = () => {
                   helperText={errors.description_pashto?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Description (Dari)"
                   {...register('description_dari', { required: 'Description (Dari) is required' })}
@@ -251,7 +251,7 @@ const JobPostingForm = () => {
 
 
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Location (English)"
                   {...register('location', { required: 'Location (English) is required' })}
@@ -261,7 +261,7 @@ const JobPostingForm = () => {
                   helperText={errors.location?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Location (Pashto)"
                   {...register('location_pashto', { required: 'Location (Pashto) is required' })}
@@ -271,7 +271,7 @@ const JobPostingForm = () => {
                   helperText={errors.location_pashto?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Location (Dari)"
                   {...register('location_dari', { required: 'Location (Dari) is required' })}
@@ -304,7 +304,7 @@ const JobPostingForm = () => {
                   inputProps={{ step: 1 }} // Allow seconds
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Requirements (English)"
                   {...register('requirements', { required: 'Requirements (English) is required' })}
@@ -316,7 +316,7 @@ const JobPostingForm = () => {
                   helperText={errors.requirements?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Requirements (Pashto)"
                   {...register('requirements_pashto', { required: 'Requirements (Pashto) is required' })}
@@ -328,7 +328,7 @@ const JobPostingForm = () => {
                   helperText={errors.requirements_pashto?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Requirements (Dari)"
                   {...register('requirements_dari', { required: 'Requirements (Dari) is required' })}
@@ -340,7 +340,7 @@ const JobPostingForm = () => {
                   helperText={errors.requirements_dari?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Responsibilities (English)"
                   {...register('responsibilities', { required: 'Responsibilities (English) is required' })}
@@ -352,7 +352,7 @@ const JobPostingForm = () => {
                   helperText={errors.responsibilities?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Responsibilities (Pashto)"
                   {...register('responsibilities_pashto', { required: 'Responsibilities (Pashto) is required' })}
@@ -364,7 +364,7 @@ const JobPostingForm = () => {
                   helperText={errors.responsibilities_pashto?.message}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <TextField
                   label="Responsibilities (Dari)"
                   {...register('responsibilities_dari', { required: 'Responsibilities (Dari) is required' })}

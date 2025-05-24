@@ -16,7 +16,9 @@ import {
   IconUser,
   IconBuilding,
   IconUsersGroup,
+  IconFileCv
 } from '@tabler/icons-react';
+import { IconAddressBook } from '@tabler/icons-react';
 
 const Menuitems = [
   {
@@ -92,7 +94,7 @@ const Menuitems = [
   {
     id: uniqueId(),
     title: 'Job Posting',
-    icon: IconCategory,
+    icon: IconFileCv,
     href: '/jobposting',
   },
   {
@@ -112,6 +114,12 @@ const Menuitems = [
     title: 'Team',
     icon: IconUsersGroup,
     href: '/team',
+  },
+  {
+    id: uniqueId(),
+    title: 'Contact',
+    icon: IconAddressBook,
+    href: '/contact',
   },
 ];
 

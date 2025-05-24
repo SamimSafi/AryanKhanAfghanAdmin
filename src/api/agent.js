@@ -669,7 +669,16 @@ const JobPostingsAPI = {
     return response.data;
   },
 };
-
+const ContactAPI = {
+  fetchContact: async () => {
+    const response = await axiosInstance.get('/contact');
+    return response.data;
+  },
+  deleteContact: async (jobPostingId) => {
+    const response = await axiosInstance.delete(`/contact/${jobPostingId}`);
+    return response.data;
+  },
+};
 // Centralized agent exporting all resource APIs
 const agent = {
   Auth:AuthAPI,
@@ -692,6 +701,7 @@ const agent = {
  Team: TeamAPI,
  JopPosting: JobPostingsAPI,
  ProjectFinalOutcomes: ProjectFinalOutcomesAPI,
+ Contact: ContactAPI,
 };
 
 export default agent;

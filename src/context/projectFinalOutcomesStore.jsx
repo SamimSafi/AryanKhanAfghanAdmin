@@ -7,10 +7,10 @@ const useProjectFinalOutcomesStore = create((set) => ({
   loading: false,
   error: null,
 
-  fetchProjectFinalOutcomes: async () => {
+  fetchProjectFinalOutcomes: async (projectId) => {
     set({ loading: true, error: null });
     try {
-      const ProjectFinalOutcomes = await agent.ProjectFinalOutcomes.fetchProjectFinalOutcomes();
+      const ProjectFinalOutcomes = await agent.ProjectFinalOutcomes.fetchProjectFinalOutcomes(projectId);
       set({ ProjectFinalOutcomes, loading: false });
     } catch (error) {
       set({ error: error.message, loading: false });

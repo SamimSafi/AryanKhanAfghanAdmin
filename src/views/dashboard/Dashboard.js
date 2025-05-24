@@ -26,7 +26,9 @@ import {
   IconUser,
   IconBuilding,
   IconUsersGroup,
+  IconFileCv,
 } from '@tabler/icons-react';
+import { IconAddressBook } from '@tabler/icons-react';
 
 // Dashboard routes (unchanged)
 const dashboardRoutes = [
@@ -41,10 +43,11 @@ const dashboardRoutes = [
   { label: 'Success Snapshots', path: '/successSnapshots', icon: <IconTrophy /> },
   { label: 'Projects', path: '/projects', icon: <IconRocket /> },
   { label: 'Project Categories', path: '/projectCategories', icon: <IconCategory /> },
-  { label: 'Job Postings', path: '/jobposting', icon: <IconCategory /> },
+  { label: 'Job Postings', path: '/jobposting', icon: <IconFileCv /> },
   { label: 'Bio', path: '/bio', icon: <IconUser /> },
   { label: 'Company Info', path: '/companyInfo', icon: <IconBuilding /> },
   { label: 'Team', path: '/team', icon: <IconUsersGroup /> },
+  { label: 'Contact', path: '/contact', icon: <IconAddressBook /> },
 ];
 
 // Styled Card with orange and dark green low-opacity colors
