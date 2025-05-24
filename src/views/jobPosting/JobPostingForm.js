@@ -51,7 +51,7 @@ const JobPostingForm = () => {
       responsibilities: '',
       responsibilities_pashto: '',
       responsibilities_dari: '',
-      vecancies: 0,
+      vacancies: 0,
       // isActive: true,
     },
   });
@@ -82,7 +82,7 @@ const JobPostingForm = () => {
             setValue('responsibilities', jobPosting.responsibilities || '');
             setValue('responsibilities_pashto', jobPosting.responsibilities_pashto || '');
             setValue('responsibilities_dari', jobPosting.responsibilities_dari || '');
-            setValue('vecancies', jobPosting.vecancies || 0);
+            setValue('vacancies', jobPosting.vacancies || 0);
             // setValue('isActive', jobPosting.isActive || false);
           } else {
             toast.error('Job posting not found.');
@@ -102,7 +102,7 @@ const JobPostingForm = () => {
         const formattedData = {
       ...data,
       applicationDeadline: new Date(data.applicationDeadline).toISOString(),
-      vecancies: Number(data.vecancies), // Convert vecancies to number
+      vacancies: Number(data.vacancies), // Convert vacancies to number
     };
 
     try {
@@ -380,14 +380,14 @@ const JobPostingForm = () => {
                   <TextField
                     label="Vacancies"
                     type="number"
-                    {...register('vecancies', {
+                    {...register('vacancies', {
                       required: 'Vacancies is required',
                       min: { value: 0, message: 'Vacancies cannot be negative' },
                     })}
                     fullWidth
                     disabled={isSubmitting}
-                    error={!!errors.vecancies}
-                    helperText={errors.vecancies?.message}
+                    error={!!errors.vacancies}
+                    helperText={errors.vacancies?.message}
                   />
                 </Grid>
               {/* <Grid item xs={6}>

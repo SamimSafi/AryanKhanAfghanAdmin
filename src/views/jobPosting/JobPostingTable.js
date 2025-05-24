@@ -88,7 +88,7 @@ const JobPostingTable = ({
               <TableCell>{jobPosting.responsibilities}</TableCell>
               <TableCell>{jobPosting.responsibilities_pashto}</TableCell>
               <TableCell>{jobPosting.responsibilities_dari}</TableCell>
-              <TableCell>{jobPosting.vecancies}</TableCell>
+              <TableCell>{jobPosting.vacancies}</TableCell>
               <TableCell>
                 {jobPosting.isActive ? (
                   <span
