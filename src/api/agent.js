@@ -84,7 +84,7 @@ const HistoryAPI = {
    updateHistoryImage: async (id, logoFile) => {
     const formData = new FormData();
     formData.append('image', logoFile);
-    const response = await axiosInstance.put(`/history/${id}/image`, formData, {
+    const response = await axiosInstance.post(`/history/${id}/image`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
