@@ -307,6 +307,7 @@ const [slidersData, setSlidersData] = useState(null);
                                 if (photo) onChange(photo);
                               }}
                                existingImage={isEdit ? slidersData?.logoPath : null} // Pass existing icon path
+                                video={true} // Enable video uploads
                             />
             </Grid>
 

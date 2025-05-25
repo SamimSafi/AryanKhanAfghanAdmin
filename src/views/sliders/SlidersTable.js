@@ -77,6 +77,7 @@ const SlidersFormTable = ({
                                               path={Sliders.photoPath}
                                               alt={Sliders.title}
                                               fallbackText="No Image"
+                                              
                                              />
                     </TableCell>
               <TableCell>
