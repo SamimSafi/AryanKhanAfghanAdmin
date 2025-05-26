@@ -27,7 +27,9 @@ export const convertFileToBinaryString = async (file) => {
 };
 
 export const  urlToFileObject = async (imageUrl, name) =>{
-  const response = await fetch(`${baseURL}${imageUrl.replace(/\\/g, '/')}`);
+  const response = await fetch(`${baseURL}${imageUrl.replace(/\\/g, '/')}`,{
+    method: 'GET'
+  });
   const blob = await response.blob();
   return new File([blob], name, { type: blob.type });
 }
