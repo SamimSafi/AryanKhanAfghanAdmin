@@ -48,6 +48,7 @@ const TeamForm = () => {
       twitter: '',
       instagram: '',
       linkedIn: '',
+      priority: 1,
       isActive: true,
     },
   });
@@ -72,6 +73,7 @@ const TeamForm = () => {
             setValue('twitter', team.twitter || '');
             setValue('instagram', team.instagram || '');
             setValue('linkedIn', team.linkedIn || '');
+            setValue('priority', team.priority || '');
             setValue('isActive', team.isActive ?? true);
           } else {
             toast.error('Team member not found.');
@@ -223,77 +225,107 @@ const TeamForm = () => {
             <Grid container lg={12} md={12}  sm={12} spacing={3}>
               <Grid item xs={12} sm={3}>
                 <TextField
-                  label="Facebook URL"
-                  {...register('facebook')}
-                  fullWidth
-                  disabled={isSubmitting}
-                  error={!!errors.facebook}
-                  helperText={errors.facebook?.message}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <FacebookIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+                        label="Facebook URL"
+                        {...register('facebook', {
+                          validate: (value) =>
+                            !value || /^https?:\/\/(www\.)?facebook\.com(\/.*)?$/i.test(value) ||
+                            'Must be a valid Facebook URL',
+                        })}
+                        fullWidth
+                        disabled={isSubmitting}
+                        error={!!errors.facebook}
+                        helperText={errors.facebook?.message}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <FacebookIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                  </Grid>
+              <Grid item xs={12} sm={3}>
+                      <TextField
+                            label="Twitter URL"
+                            {...register('twitter', {
+                              validate: (value) =>
+                                !value || /^https?:\/\/(www\.)?twitter\.com(\/.*)?$/i.test(value) ||
+                                'Must be a valid Twitter URL',
+                            })}
+                            fullWidth
+                            disabled={isSubmitting}
+                            error={!!errors.twitter}
+                            helperText={errors.twitter?.message}
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <TwitterIcon />
+                                </InputAdornment>
+                              ),
+                            }}
+                          />
               </Grid>
               <Grid item xs={12} sm={3}>
-                <TextField
-                  label="Twitter URL"
-                  {...register('twitter')}
-                  fullWidth
-                  disabled={isSubmitting}
-                  error={!!errors.twitter}
-                  helperText={errors.twitter?.message}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <TwitterIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+                      <TextField
+                          label="Instagram URL"
+                          {...register('instagram', {
+                            validate: (value) =>
+                              !value || /^https?:\/\/(www\.)?instagram\.com(\/.*)?$/i.test(value) ||
+                              'Must be a valid Instagram URL',
+                          })}
+                          fullWidth
+                          disabled={isSubmitting}
+                          error={!!errors.instagram}
+                          helperText={errors.instagram?.message}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <InstagramIcon />
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
               </Grid>
               <Grid item xs={12} sm={3}>
-                <TextField
-                  label="Instagram URL"
-                  {...register('instagram')}
-                  fullWidth
-                  disabled={isSubmitting}
-                  error={!!errors.instagram}
-                  helperText={errors.instagram?.message}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <InstagramIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={3}>
-                <TextField
-                  label="LinkedIn URL"
-                  {...register('linkedIn')}
-                  fullWidth
-                  disabled={isSubmitting}
-                  error={!!errors.linkedIn}
-                  helperText={errors.linkedIn?.message}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <LinkedInIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+                 <TextField
+                    label="LinkedIn URL"
+                    {...register('linkedIn', {
+                      validate: (value) =>
+                        !value || /^https?:\/\/(www\.)?linkedin\.com(\/.*)?$/i.test(value) ||
+                        'Must be a valid LinkedIn URL',
+                    })}
+                    fullWidth
+                    disabled={isSubmitting}
+                    error={!!errors.linkedIn}
+                    helperText={errors.linkedIn?.message}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <LinkedInIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
               </Grid>
             </Grid>
+            
+             <Grid container lg={12} md={12}  sm={12} spacing={3}>
 
-            {/* Status Field */}
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
+
+                  <Grid item xs={12} sm={6} md={6} lg={6}>
+                    <TextField
+                      label="Priority Level"
+                      {...register('priority')}
+                      fullWidth
+                      disabled={isSubmitting}
+                      error={!!errors.priority}
+                      helperText={errors.priority?.message}
+                      type='number'
+                    />
+                  </Grid>
+
+                     {/* Status Field */}
+              <Grid item xs={12} sm={6} md={6} lg={6}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -306,6 +338,8 @@ const TeamForm = () => {
                 />
               </Grid>
             </Grid>
+
+         
 
             {/* Buttons */}
             <Box sx={{ display: 'flex', gap: 2, pt: 2 }}>

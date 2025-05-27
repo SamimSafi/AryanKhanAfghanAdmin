@@ -143,6 +143,7 @@ const SuccessSnapshotsForm = () => {
                   disabled={isSubmitting}
                   error={!!errors.completeProjectcount}
                   helperText={errors.completeProjectcount?.message}
+                  type='number'
                 />
               </Grid>
               <Grid item xs={3}>
@@ -153,6 +154,7 @@ const SuccessSnapshotsForm = () => {
                   disabled={isSubmitting}
                   error={!!errors.HappyClientCount}
                   helperText={errors.HappyClientCount?.message}
+                  type='number'
                 />
               </Grid>
               <Grid item xs={3}>
@@ -163,6 +165,7 @@ const SuccessSnapshotsForm = () => {
                   disabled={isSubmitting}
                   error={!!errors.QualifiedEnginnerCount}
                   helperText={errors.QualifiedEnginnerCount?.message}
+                  type='number'
                 />
               </Grid>
               <Grid item xs={3}>
@@ -173,6 +176,7 @@ const SuccessSnapshotsForm = () => {
                   disabled={isSubmitting}
                   error={!!errors.YearsExperience}
                   helperText={errors.YearsExperience?.message}
+                  type='number'
                 />
               </Grid>
             </Grid>

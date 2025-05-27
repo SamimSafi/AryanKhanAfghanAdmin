@@ -84,6 +84,7 @@ const { activateTeam, deactivateTeam } = useTeamStore();
             </TableCell>
             <TableCell>Name Pashto</TableCell>
             <TableCell>Name Dari</TableCell>
+            <TableCell>priority</TableCell>
             <TableCell>jobTitle</TableCell>
             <TableCell>jobTitle Pashto</TableCell>
             <TableCell>jobTitle Dari</TableCell>
@@ -108,6 +109,7 @@ const { activateTeam, deactivateTeam } = useTeamStore();
               <TableCell>{teamy.name}</TableCell>
               <TableCell>{teamy.name_pashto}</TableCell>
               <TableCell>{teamy.name_dari}</TableCell>
+              <TableCell>{teamy.priority}</TableCell>
               <TableCell>{teamy.jobTitle}</TableCell>
               <TableCell>{teamy.jobTitle_pashto}</TableCell>
               <TableCell>{teamy.jobTitle_dari}</TableCell>
