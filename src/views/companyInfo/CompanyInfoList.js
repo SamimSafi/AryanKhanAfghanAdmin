@@ -81,7 +81,7 @@ const CompanyInfoList = () => {
       await deleteCompanyInfo(deleteId);
       fetchCompanyInfo({ pageSize: rowsPerPage, pageIndex: page, search: debouncedSearch });
     } catch (error) {
-      toast.error('Failed to delete Project Category.');
+      toast.error('Failed to delete Company Info.');
     } finally {
       setOpenDialog(false);
       setDeleteId(null);
@@ -117,7 +117,7 @@ const CompanyInfoList = () => {
             variant="contained"
             onClick={() => navigate('/companyInfo/create')}
           >
-            Create New Category
+            Create New Info
           </Button>
         </Box>
       </Box>

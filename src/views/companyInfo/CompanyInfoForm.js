@@ -98,7 +98,7 @@ const CompanyInfoForm = () => {
     <Card sx={{ p: 3, width: '100%', maxWidth: 1200, mx: 'auto' }}>
       <Box sx={{ width: '100%' }}>
         <Typography variant="h4" gutterBottom>
-          {isEdit ? 'Edit Category' : 'Create Category'}
+          {isEdit ? 'Edit Info' : 'Create Info'}
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3}>
@@ -282,8 +282,8 @@ const CompanyInfoForm = () => {
                 {isSubmitting
                   ? 'Saving...'
                   : isEdit
-                  ? 'Update Category'
-                  : 'Create Category'}
+                  ? 'Update Info'
+                  : 'Create Info'}
               </Button>
               <Button
                 variant="outlined"

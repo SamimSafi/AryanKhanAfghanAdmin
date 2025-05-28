@@ -3,7 +3,7 @@ const projectCategoriesService = {
     let filtered = projectCategories;
     if (searchTerm.length >= 3) {
       filtered = filtered.filter((projectCategories) =>
-        projectCategories.title.toLowerCase().includes(searchTerm.toLowerCase())
+        projectCategories.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -12,7 +12,7 @@ const projectCategoriesService = {
 
   sortProjectCategories: (projectCategories, sortOrder) => {
     return [...projectCategories].sort((a, b) => {
-      const comparison = a.title.localeCompare(b.title);
+      const comparison = a.name.localeCompare(b.name);
       return sortOrder === 'asc' ? comparison : -comparison;
     });
   },
