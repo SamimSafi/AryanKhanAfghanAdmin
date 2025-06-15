@@ -119,8 +119,8 @@ const { activateTeam, deactivateTeam } = useTeamStore();
               <TableCell><DescriptionComponent description={teamy.description_dari} maxLength={60} /></TableCell>
               <TableCell>{teamy.facebook}</TableCell>
               <TableCell>{teamy.twitter}</TableCell>
+              <TableCell>{teamy.instagram}</TableCell>
               <TableCell>{teamy.linkedIn}</TableCell>
-              <TableCell>{teamy.description_dari}</TableCell>
               <TableCell>
                 <ImageDisplay
                               path={teamy.image}
