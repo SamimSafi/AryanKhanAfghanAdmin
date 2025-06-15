@@ -16,3 +16,16 @@ export const formatDateToLocal = (dateString, options = {}) => {
     return 'Invalid Date';
   }
 };
+
+export const DescriptionComponent = ({ description = '', maxLength = 100 }) => {
+  if (typeof description !== 'string' || description.trim() === '') {
+    return <>N/A</>; // or return null;
+  }
+
+  const shouldTruncate = description.length > maxLength;
+  const displayedText = shouldTruncate
+    ? description.substring(0, maxLength) + '...'
+    : description;
+
+  return <span>{displayedText}</span>;
+};
