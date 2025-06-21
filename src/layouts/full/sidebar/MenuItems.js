@@ -17,7 +17,9 @@ import {
   IconBuilding,
   IconUsersGroup,
   IconFileCv,
-  IconHandClick
+  IconHandClick,
+  IconMenuDeep,
+  IconEdit,
 } from '@tabler/icons-react';
 import { IconAddressBook } from '@tabler/icons-react';
 
@@ -32,6 +34,12 @@ const Menuitems = [
     icon: IconLayoutDashboard,
     href: '/dashboard',
   },
+      {
+    id: uniqueId(),
+    title: 'Slogan',
+    icon: IconMenuDeep,
+    href: '/slogan', 
+  },
   {
     id: uniqueId(),
     title: 'Users',
@@ -43,6 +51,12 @@ const Menuitems = [
     title: 'History',
     icon: IconHistory,
     href: '/history',
+  },
+    {
+    id: uniqueId(),
+    title: 'Contents',
+    icon: IconEdit,
+    href: '/content',
   },
   {
     id: uniqueId(),

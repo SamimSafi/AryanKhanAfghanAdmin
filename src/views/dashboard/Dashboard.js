@@ -28,6 +28,8 @@ import {
   IconUsersGroup,
   IconFileCv,
   IconHandClick,
+  IconMenuDeep,
+  IconEdit,
 } from '@tabler/icons-react';
 import { IconAddressBook } from '@tabler/icons-react';
 
@@ -35,7 +37,9 @@ import { IconAddressBook } from '@tabler/icons-react';
 const dashboardRoutes = [
   { label: 'Dashboard', path: '/dashboard', icon: <IconLayoutDashboard /> },
   { label: 'Users', path: '/users', icon: <IconUsers /> },
+  { label: 'slogan', path: '/slogan', icon: <IconMenuDeep /> },
   { label: 'History', path: '/history', icon: <IconHistory /> },
+  { label: 'Contents', path: '/content', icon: <IconEdit /> },
   { label: 'Leadership', path: '/leadership', icon: <IconAward /> },
   { label: 'Mission', path: '/mission', icon: <IconRocket /> },
   { label: 'Partnership', path: '/partnership', icon: <IconHeartHandshake /> },
