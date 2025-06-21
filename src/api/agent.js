@@ -713,6 +713,80 @@ const WhyChooseUsAPI = {
   
 };
 
+// Slogan API calls
+const SloganAPI = {
+    fetchSlogan: async () => {
+    const response = await axiosInstance.get('/slogans');
+    return response.data;
+  },
+  createSlogan: async (SloganData) => {
+    const response = await axiosInstance.post('/slogans', SloganData);
+    return response.data;
+  },
+   updateSlogan: async (id, SloganData) => {
+    const response = await axiosInstance.put(`/slogans/${id}`, SloganData);
+    return response.data;
+  },
+  deleteSlogan: async (SloganId) => {
+    const response = await axiosInstance.delete(`/slogans/${SloganId}`);
+    return response.data;
+  },
+  getSlogan: async (SloganId) => {
+    const response = await axiosInstance.get(`/slogans/${SloganId}`);
+    return response.data;
+  },
+  updateSloganImage: async (id, logoFile) => {
+    const formData = new FormData();
+    formData.append('image', logoFile);
+    const response = await axiosInstance.put(`/slogans/${id}/image`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+};
+
+// Services API calls
+const ContentAPI = {
+    fetchContent: async () => {
+    const response = await axiosInstance.get('/content');
+    return response.data;
+  },
+  createContent: async (ContentData) => {
+   const response = await axiosInstance.post('/content', ContentData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+   updateContent: async (id, ContentData) => {
+    const response = await axiosInstance.put(`/content/${id}`, ContentData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
+  deleteContent: async (ContentId) => {
+    const response = await axiosInstance.delete(`/content/${ContentId}`);
+    return response.data;
+  },
+  getContent: async (ContentId) => {
+    const response = await axiosInstance.get(`/content/${ContentId}`);
+    return response.data;
+  },
+   activateContent: async (id) => {
+    const response = await axiosInstance.post(`/content/${id}/activate`);
+    return response.data;
+  },
+  deactivateContent: async (id) => {
+    const response = await axiosInstance.post(`/content/${id}/deactivate`);
+    return response.data;
+  },
+  
+};
 // Centralized agent exporting all resource APIs
 const agent = {
   Auth:AuthAPI,
@@ -733,10 +807,12 @@ const agent = {
  Bio: BioAPI,
  CompanyInfo: CompanyInfoAPI,
  Team: TeamAPI,
- JopPosting: JobPostingsAPI,
+ JobPosting: JobPostingsAPI,
  ProjectFinalOutcomes: ProjectFinalOutcomesAPI,
  Contact: ContactAPI,
  WhyChooseUs: WhyChooseUsAPI,
+ Slogan: SloganAPI,
+ Content: ContentAPI,
 };
 
 export default agent;
