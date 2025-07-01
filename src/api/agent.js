@@ -787,6 +787,31 @@ const ContentAPI = {
   },
   
 };
+
+// Department API calls
+const DepartmentAPI = {
+    fetchDepartment: async () => {
+    const response = await axiosInstance.get('/departments');
+    return response.data;
+  },
+  createDepartment: async (DepartmentData) => {
+    const response = await axiosInstance.post('/departments', DepartmentData);
+    return response.data;
+  },
+  updateDepartment: async (id, DepartmentData) => {
+    const response = await axiosInstance.put(`/departments/${id}`, DepartmentData);
+    return response.data;
+  },
+  deleteDepartment: async (DepartmentId) => {
+    const response = await axiosInstance.delete(`/departments/${DepartmentId}`);
+    return response.data;
+  },
+  getDepartment: async (DepartmentId) => {
+    const response = await axiosInstance.get(`/departments/${DepartmentId}`);
+    return response.data;
+  },
+  
+};
 // Centralized agent exporting all resource APIs
 const agent = {
   Auth:AuthAPI,
@@ -813,6 +838,7 @@ const agent = {
  WhyChooseUs: WhyChooseUsAPI,
  Slogan: SloganAPI,
  Content: ContentAPI,
+ Department: DepartmentAPI,
 };
 
 export default agent;

@@ -73,6 +73,9 @@ const WhyChooseUsForm = lazy(() => import('../views/whychooseus/WhyChooseUsForm'
 const ContentList = lazy(() => import('../views/content/ContentList'));
 const ContentForm = lazy(() => import('../views/content/ContentForm'));
 
+const DepartmentList = lazy(() => import('../views/department/DepartmentList'));
+const DepartmentForm = lazy(() => import('../views/department/DepartmentForm'));
+
 const SloganList = lazy(() => import('../views/slogan/SloganList'));
 const SloganForm = lazy(() => import('../views/slogan/SloganForm'));
 const SloganImageForm = lazy(() => import('../views/slogan/SloganImageForm'));
@@ -156,6 +159,9 @@ const Router = [
           { path: '/slogan/create', element: <SloganForm /> },
           { path: '/slogan/edit/:id', element: <SloganForm /> },
           { path: '/slogan/:id/image', element: <SloganImageForm /> },
+          { path: '/department', element: <DepartmentList /> },
+          { path: '/department/create', element: <DepartmentForm /> },
+          { path: '/department/edit/:id', element: <DepartmentForm /> },
           { path: '*', element: <Navigate to="/auth/404" /> },
         ],
       },
